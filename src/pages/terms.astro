@@ -1,0 +1,78 @@
+---
+import Base from '@/layouts/Base.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import Todo from '@/components/Todo.astro';
+import { SITE } from '@/lib/site';
+import { breadcrumbs } from '@/lib/schema';
+
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Terms of Use', href: '/terms' },
+];
+const updated = '9 July 2026';
+---
+<Base
+  title="Terms of Use — Mini, Jaipur"
+  description="Terms of use for the Mini Coworking Spaces + Mini Studio website — content, placeholders, bookings and liability, in plain language."
+  schema={[breadcrumbs(crumbs)]}
+>
+  <Breadcrumbs items={crumbs} />
+
+  <article class="mx-auto max-w-3xl px-4 pb-16 pt-10 sm:px-6">
+    <h1 class="text-4xl font-semibold leading-[1.1] text-espresso sm:text-5xl">Terms of Use</h1>
+    <p class="mt-3 text-sm text-ink/70">Last updated: {updated}</p>
+
+    <div class="prose-mini mt-8">
+      <p>
+        This website is operated by {SITE.legalName} ("Mini", "we")
+        <Todo label="confirm legal entity name" />. By using it you agree to these terms — kept short and
+        in plain language on purpose.
+      </p>
+
+      <h2>Information, not an offer</h2>
+      <p>
+        Everything on this site is for general information. Items visibly marked as placeholders (for
+        example pricing, plan names, studio specifications, hours) are drafts awaiting confirmation and are
+        not offers. Memberships, studio bookings and meeting-room bookings are only confirmed when we agree
+        them with you directly (on WhatsApp, by email, or in person), and may be subject to a separate
+        membership agreement.
+      </p>
+
+      <h2>Content and brand</h2>
+      <p>
+        The Mini name, logo, text and design on this site belong to us. You're welcome to share links and
+        quote us with attribution; please don't copy the site wholesale or use the brand in a way that
+        suggests affiliation without asking.
+      </p>
+
+      <h2>External links and services</h2>
+      <p>
+        Links to WhatsApp, Instagram and other external services are provided for convenience; those
+        platforms have their own terms, and we aren't responsible for their content or availability.
+      </p>
+
+      <h2>No warranties, limited liability</h2>
+      <p>
+        We work to keep the site accurate and available, but it's provided "as is" — we can't promise it is
+        error-free or uninterrupted, and to the extent the law allows, we aren't liable for losses arising
+        from reliance on the site itself. This doesn't limit any rights you have under Indian law that
+        can't be excluded.
+      </p>
+
+      <h2>Privacy</h2>
+      <p>How we handle your information is covered by our <a href="/privacy">Privacy Policy</a>.</p>
+
+      <h2>Governing law</h2>
+      <p>
+        These terms are governed by the laws of India; disputes fall under the jurisdiction of the courts at
+        Jaipur, Rajasthan.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Questions about these terms: <a href={`mailto:${SITE.email}`}>{SITE.email}</a> or
+        <a href={SITE.whatsappUrl} target="_blank" rel="noopener">WhatsApp {SITE.phoneDisplay}</a>.
+      </p>
+    </div>
+  </article>
+</Base>

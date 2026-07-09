@@ -1,0 +1,101 @@
+---
+import Base from '@/layouts/Base.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import Todo from '@/components/Todo.astro';
+import { SITE } from '@/lib/site';
+import { breadcrumbs } from '@/lib/schema';
+
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Privacy Policy', href: '/privacy' },
+];
+const updated = '9 July 2026';
+---
+<Base
+  title="Privacy Policy — Mini, Jaipur"
+  description="How Mini Coworking Spaces + Mini Studio (Jaipur) handles your information — what we collect, what we don't, cookies, analytics and your rights."
+  schema={[breadcrumbs(crumbs)]}
+>
+  <Breadcrumbs items={crumbs} />
+
+  <article class="mx-auto max-w-3xl px-4 pb-16 pt-10 sm:px-6">
+    <h1 class="text-4xl font-semibold leading-[1.1] text-espresso sm:text-5xl">Privacy Policy</h1>
+    <p class="mt-3 text-sm text-ink/70">Last updated: {updated}</p>
+
+    <div class="prose-mini mt-8">
+      <p>
+        This website is operated by {SITE.legalName} ("Mini", "we")
+        <Todo label="confirm legal entity name + registered address" /> for Mini Coworking Spaces and Mini
+        Studio in Jaipur, Rajasthan, India. We keep this simple and honest — here is exactly what happens
+        with your information.
+      </p>
+
+      <h2>What we collect (and what we don't)</h2>
+      <p>
+        This is a static website. It has no user accounts, and we do not run our own servers that store
+        your personal data when you browse it.
+      </p>
+      <ul>
+        <li>
+          <strong>Contact and tour requests.</strong> The forms on this site do not upload your details to
+          a database. When you submit one, it opens WhatsApp on your device with a message prefilled from
+          what you typed (name, phone, email, interest, message) — nothing is sent until you press send in
+          WhatsApp. From then on, your message reaches us as an ordinary WhatsApp chat, and WhatsApp's own
+          <a href="https://www.whatsapp.com/legal/privacy-policy" target="_blank" rel="noopener">privacy policy</a>
+          (Meta) also applies. If you email us at {SITE.email} or call us, we receive whatever you choose to share.
+        </li>
+        <li>
+          <strong>What we do with it.</strong> We use your contact details only to reply, arrange your tour or
+          booking, and manage your membership conversation. We do not sell your information, and we do not
+          add you to marketing lists you didn't ask for.
+        </li>
+      </ul>
+
+      <h2>Cookies and analytics</h2>
+      <ul>
+        <li>
+          <strong>Consent choice.</strong> Your "Allow / No thanks" choice on the cookie notice is stored in
+          your browser's local storage. It never leaves your device.
+        </li>
+        <li>
+          <strong>Analytics.</strong> If (and only if) you choose "Allow", we load Google Analytics 4 with IP
+          anonymisation to understand which pages are useful. If you choose "No thanks" — or ignore the
+          banner — no analytics script loads at all. There is no advertising tracking on this site.
+        </li>
+      </ul>
+
+      <h2>Hosting and third parties</h2>
+      <ul>
+        <li>
+          <strong>Hosting.</strong> The site is served by GitHub Pages. Like any web host, GitHub may log
+          technical request data (such as IP addresses) for security — see
+          <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub's privacy statement</a>.
+        </li>
+        <li>
+          <strong>Links.</strong> Links to Instagram, WhatsApp and other external services take you to
+          platforms governed by their own policies.
+        </li>
+      </ul>
+
+      <h2>Your rights</h2>
+      <p>
+        Under India's Digital Personal Data Protection Act, 2023, you can ask us what personal data we hold
+        about you (typically: our chat and email history with you), ask us to correct it, or ask us to delete
+        it. Message us on <a href={SITE.whatsappUrl} target="_blank" rel="noopener">WhatsApp</a> or email
+        <a href={`mailto:${SITE.email}`}>{SITE.email}</a> and we'll sort it out.
+      </p>
+
+      <h2>Changes</h2>
+      <p>
+        If we change how this site handles data (for example, adding a form backend or a newsletter service),
+        we'll update this page and the date at the top before the change goes live.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        {SITE.legalName}, Jaipur, Rajasthan <Todo label="registered address" /> ·
+        <a href={`mailto:${SITE.email}`}>{SITE.email}</a> · {SITE.phoneDisplay}
+      </p>
+    </div>
+  </article>
+</Base>

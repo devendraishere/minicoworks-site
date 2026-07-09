@@ -63,6 +63,12 @@ const cols = [
     </div>
   </div>
   <div class="border-t border-cream/10">
-    <p class="mx-auto max-w-6xl px-4 py-5 text-xs text-cream/70 sm:px-6">© {year} {SITE.legalName}. Small on purpose, in {SITE.city}.</p>
+    <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-5 text-xs text-cream/70 sm:px-6">
+      <p>© {year} {SITE.legalName}. Small on purpose, in {SITE.city}.</p>
+      <p class="flex gap-4">
+        <a href="/privacy" class="hover:text-cream hover:underline underline-offset-4">Privacy Policy</a>
+        <a href="/terms" class="hover:text-cream hover:underline underline-offset-4">Terms of Use</a>
+      </p>
+    </div>
   </div>
 </footer>
