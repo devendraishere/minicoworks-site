@@ -1,0 +1,92 @@
+---
+import Base from '@/layouts/Base.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import Button from '@/components/Button.astro';
+import Todo from '@/components/Todo.astro';
+import Doodle from '@/components/Doodle.astro';
+import CTASection from '@/components/CTASection.astro';
+import { SPACES } from '@/lib/site';
+import { breadcrumbs, service } from '@/lib/schema';
+
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Spaces', href: '/spaces' },
+];
+
+const reassurance = ['Fast Wi-Fi', 'Coffee', 'Meeting rooms', 'Community events', 'Concierge help'];
+
+const schema = [
+  breadcrumbs(crumbs),
+  service({
+    name: 'Coworking Space in Jaipur',
+    description: 'Flexible coworking in Jaipur — hot desks, dedicated desks, private cabins and meeting rooms, all with community and concierge included.',
+    url: '/spaces',
+    type: 'Coworking space',
+  }),
+];
+---
+<Base
+  title="Coworking Spaces in Jaipur — Desks, Cabins & Rooms | Mini"
+  description="Flexible coworking in Jaipur — hot desks, dedicated desks, private cabins and meeting rooms, all with community and concierge included."
+  schema={schema}
+>
+  <Breadcrumbs items={crumbs} />
+
+  <section class="mx-auto max-w-6xl px-4 pb-14 pt-10 sm:px-6 sm:pt-14">
+    <h1 class="max-w-3xl text-4xl font-semibold leading-[1.1] text-espresso sm:text-5xl">
+      A coworking space in Jaipur with room to work, your way — and
+      <span class="relative inline-block whitespace-nowrap">people worth knowing.<Doodle kind="underline" class="absolute -bottom-2 left-0 w-full text-amber-brand" /></span>
+    </h1>
+    <p class="mt-5 max-w-2xl text-lg leading-relaxed text-ink/75">
+      From a drop-in seat to a private cabin, every plan comes with the curated community and the concierge — not just
+      the furniture.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-6xl space-y-6 px-4 pb-16 sm:px-6">
+    {SPACES.map((s, i) => (
+      <article class={`grid items-center gap-6 rounded-3xl p-8 shadow-card sm:p-10 lg:grid-cols-[1.5fr_auto] ${i % 2 === 0 ? 'bg-white' : 'bg-cream'}`}>
+        <div>
+          <h2 class="text-2xl font-semibold text-espresso sm:text-3xl">
+            <a href={`/spaces/${s.slug}`} class="hover:text-amber-deep">{s.name}</a>
+          </h2>
+          <p class="mt-2.5 max-w-xl leading-relaxed text-ink/75">{s.description}</p>
+          <p class="mt-4 text-sm font-semibold text-espresso/80">from ₹<Todo label="price" /></p>
+        </div>
+        <div class="flex flex-wrap gap-3 lg:flex-col">
+          <Button href="/contact#tour" event="book_tour_click">Book a tour</Button>
+          <Button href={`/spaces/${s.slug}`} variant="secondary">Details</Button>
+        </div>
+      </article>
+    ))}
+
+    <article class="grid items-center gap-6 rounded-3xl bg-berry p-8 text-cream shadow-card sm:p-10 lg:grid-cols-[1.5fr_auto]">
+      <div>
+        <h2 class="text-2xl font-semibold sm:text-3xl"><a href="/studio" class="hover:text-amber-brand">Studio Time</a></h2>
+        <p class="mt-2.5 max-w-xl leading-relaxed text-cream/85">
+          Add Mini Studio hours to any plan — record podcasts, reels and brand content where you already work.
+        </p>
+      </div>
+      <Button href="/studio" event="studio_book_click">Book the studio</Button>
+    </article>
+  </section>
+
+  <section class="bg-cream">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <ul class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm font-semibold text-espresso/75">
+        {reassurance.map((r) => (
+          <li class="flex items-center gap-2">
+            <span class="h-2 w-2 rounded-full bg-teal-brand"></span>{r}
+          </li>
+        ))}
+        <li><Todo label="confirm amenity list" /></li>
+      </ul>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <Button href="/membership" variant="secondary">Compare membership</Button>
+        <Button href="/contact#tour" event="book_tour_click">Book a tour</Button>
+      </div>
+    </div>
+  </section>
+
+  <CTASection />
+</Base>

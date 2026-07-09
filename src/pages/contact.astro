@@ -1,0 +1,68 @@
+---
+import Base from '@/layouts/Base.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import Todo from '@/components/Todo.astro';
+import LeadForm from '@/components/LeadForm.astro';
+import MapEmbed from '@/components/MapEmbed.astro';
+import { SITE } from '@/lib/site';
+import { breadcrumbs } from '@/lib/schema';
+
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Contact', href: '/contact' },
+];
+---
+<Base
+  title="Contact & Visit — Mini Coworking + Studio, Jaipur"
+  description="Book a tour of Mini — a boutique coworking space and podcast studio in Jaipur. WhatsApp us, send a message, or drop by for a coffee."
+  schema={[breadcrumbs(crumbs)]}
+>
+  <Breadcrumbs items={crumbs} />
+
+  <section class="mx-auto max-w-6xl px-4 pb-16 pt-10 sm:px-6 sm:pt-14">
+    <h1 class="text-4xl font-semibold leading-[1.1] text-espresso sm:text-5xl">Come say hi.</h1>
+    <p class="mt-4 max-w-2xl text-lg leading-relaxed text-ink/75">
+      Book a tour, ask about the studio, or just come see the room — coffee's on us.
+    </p>
+
+    <div class="mt-10 grid gap-10 lg:grid-cols-[1.2fr_1fr]">
+      <div id="tour" class="scroll-mt-24 rounded-3xl bg-white p-7 shadow-card sm:p-9">
+        <h2 class="text-2xl font-semibold text-espresso">Book a tour / send a message</h2>
+        <p class="mt-2 mb-6 text-sm text-ink/65">We reply the same day. In a hurry? WhatsApp is fastest.</p>
+        <LeadForm />
+      </div>
+
+      <div class="space-y-6">
+        <div class="rounded-3xl bg-espresso p-7 text-cream">
+          <h2 class="text-lg font-semibold">Reach us directly</h2>
+          <ul class="mt-4 space-y-3 text-sm text-cream/85">
+            <li>
+              <a href={SITE.whatsappUrl} target="_blank" rel="noopener" data-event="whatsapp_click" class="font-semibold text-amber-brand underline underline-offset-4">WhatsApp {SITE.phoneDisplay}</a>
+              — fastest reply
+            </li>
+            <li><a href={`tel:${SITE.phoneE164}`} class="hover:underline underline-offset-4">Call {SITE.phoneDisplay}</a></li>
+            <li><a href={`mailto:${SITE.email}`} class="hover:underline underline-offset-4">{SITE.email}</a></li>
+            <li>
+              Instagram:
+              <a href={SITE.instagram.coworking.url} target="_blank" rel="noopener" class="hover:underline underline-offset-4">{SITE.instagram.coworking.handle}</a> ·
+              <a href={SITE.instagram.studio.url} target="_blank" rel="noopener" class="hover:underline underline-offset-4">{SITE.instagram.studio.handle}</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- NAP: must match the Google Business Profile exactly once confirmed -->
+        <div class="rounded-3xl bg-white p-7 shadow-card">
+          <h2 class="text-lg font-semibold text-espresso">Visit</h2>
+          <address class="mt-4 space-y-2.5 text-sm not-italic text-ink/75">
+            <p><span class="font-semibold text-espresso">Mini Coworking Spaces + Mini Studio</span></p>
+            <p><Todo label="street address (match Google Business Profile exactly)" /></p>
+            <p>Jaipur, Rajasthan</p>
+            <p><Todo label="opening hours" /></p>
+          </address>
+        </div>
+
+        <MapEmbed />
+      </div>
+    </div>
+  </section>
+</Base>

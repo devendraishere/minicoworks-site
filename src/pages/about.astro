@@ -1,0 +1,116 @@
+---
+import Base from '@/layouts/Base.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import Button from '@/components/Button.astro';
+import Todo from '@/components/Todo.astro';
+import Doodle from '@/components/Doodle.astro';
+import CTASection from '@/components/CTASection.astro';
+import { breadcrumbs } from '@/lib/schema';
+
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'About', href: '/about' },
+];
+---
+<Base
+  title="About Mini — Boutique Coworking & Studio in Jaipur"
+  description="Small on purpose — a boutique coworking space and creator studio in Jaipur where you're known by name, your day is handled, and your brand gets built."
+  schema={[breadcrumbs(crumbs)]}
+>
+  <Breadcrumbs items={crumbs} />
+
+  <section class="mx-auto max-w-3xl px-4 pb-14 pt-10 text-center sm:px-6 sm:pt-16">
+    <h1 class="text-4xl font-semibold leading-[1.1] text-espresso sm:text-6xl">
+      Small on
+      <span class="relative inline-block whitespace-nowrap">purpose.<Doodle kind="underline" class="absolute -bottom-2 left-0 w-full text-amber-brand" /></span>
+    </h1>
+    <p class="mt-6 text-lg leading-relaxed text-ink/75">
+      Mini is Jaipur's boutique coworking space and creator studio. A curated community where you're known by name, your
+      workday is handled, and a professional studio lets you build your brand alongside your business. Not a desk in a
+      crowd — a home base that helps you grow.
+    </p>
+  </section>
+
+  <!-- Why we exist -->
+  <section class="bg-cream">
+    <div class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+      <h2 class="text-3xl font-semibold text-espresso">Why Mini exists</h2>
+      <p class="mt-5 leading-relaxed text-ink/80">
+        In Jaipur, independents and small teams are stuck choosing between anonymous desk-farms and lonely home offices —
+        with nowhere that builds their community, handles their day, and helps them grow a brand.
+      </p>
+      <p class="mt-4 leading-relaxed text-ink/80">
+        So we built the third option: a boutique, curated space with concierge service and a studio built in.
+      </p>
+      <div class="mt-8 rounded-3xl bg-espresso p-8 text-cream">
+        <p class="text-xs font-semibold uppercase tracking-[0.22em] text-amber-brand">Our mission</p>
+        <p class="mt-3 font-display text-xl leading-relaxed">
+          Mini exists to give Jaipur's creators and small teams a home that knows them, handles their day, and helps them
+          build their brand — not just a desk.
+        </p>
+      </div>
+      <div class="mt-4 rounded-3xl bg-teal-brand p-8 text-cream">
+        <p class="text-xs font-semibold uppercase tracking-[0.22em] text-cream/70">Our vision</p>
+        <p class="mt-3 font-display text-xl leading-relaxed">
+          A Jaipur where independent builders don't work alone or unseen — where the place you work also grows your
+          network, your brand, and your business.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Founder note -->
+  <section class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+    <h2 class="text-3xl font-semibold text-espresso">A note from the founder</h2>
+    <div class="mt-6 rounded-3xl bg-white p-8 shadow-card">
+      <p class="leading-relaxed text-ink/80">
+        Mini is founder-built, not franchise-imported — started by Devendra to be the room he wished existed in Jaipur:
+        small enough to know everyone, serious enough to build in, with a studio so your work gets seen.
+      </p>
+      <p class="mt-4 text-sm text-ink/70">
+        Full founder note and photo — <Todo label="founder note (Devendra's words) + photo" />
+      </p>
+    </div>
+  </section>
+
+  <!-- What curated means -->
+  <section class="bg-cream">
+    <div class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+      <h2 class="text-3xl font-semibold text-espresso">What "curated" means here</h2>
+      <p class="mt-5 leading-relaxed text-ink/80">
+        We cap the room on purpose and start every membership with a conversation. Not to be exclusive for its own sake —
+        but because a community only works when the people in it are worth knowing. You join Mini the way you'd join a
+        good dinner table: someone makes room, and someone introduces you.
+      </p>
+    </div>
+  </section>
+
+  <!-- Studio + incubator vision -->
+  <section id="incubator" class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+    <div class="grid gap-6 lg:grid-cols-2">
+      <article class="rounded-3xl bg-berry p-8 text-cream">
+        <Doodle kind="mic" class="h-10 w-10 text-amber-brand" />
+        <h2 class="mt-4 text-2xl font-semibold">The studio vision</h2>
+        <p class="mt-3 leading-relaxed text-cream/85">
+          Every independent builder is now also a publisher. Mini Studio exists so that the place you work can also grow
+          your audience — record where you build, publish more, look bigger than you are.
+        </p>
+        <div class="mt-6"><Button href="/studio">See Mini Studio</Button></div>
+      </article>
+      <article class="rounded-3xl bg-espresso p-8 text-cream">
+        <Doodle kind="arrow" class="h-10 w-10 text-amber-brand" />
+        <h2 class="mt-4 text-2xl font-semibold">The incubator track</h2>
+        <p class="mt-3 leading-relaxed text-cream/85">
+          A focused incubation track for early founders and creators — mentors, introductions, and demo-day content.
+          We're shaping the first cohort now. <Todo label="incubator details + timeline" class="!border-cream/50 !bg-cream/10 !text-cream" />
+        </p>
+        <div class="mt-6"><Button href="/contact" variant="ghost">Ask about it</Button></div>
+      </article>
+    </div>
+    <p class="mt-8 text-center text-sm text-ink/70">
+      Advisors &amp; partners — <Todo label="advisory / partner list" />
+    </p>
+  </section>
+
+  <CTASection />
+</Base>

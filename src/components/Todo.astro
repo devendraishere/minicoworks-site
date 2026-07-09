@@ -1,0 +1,11 @@
+---
+// Visible placeholder for unconfirmed facts (brief §1: never fabricate;
+// every [confirm] ships as a clearly-marked TODO).
+interface Props { label?: string; class?: string }
+const { label = 'confirm', class: className = '' } = Astro.props;
+---
+<mark
+  class={`inline-flex items-center gap-1 rounded-md border border-dashed border-berry/50 bg-berry/10 px-1.5 py-0.5 align-baseline text-[0.72em] font-sans font-semibold tracking-wide text-berry ${className}`}
+  title="Placeholder — real value to be confirmed before launch"
+  >TODO: {label}</mark
+>

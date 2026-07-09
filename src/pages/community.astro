@@ -1,0 +1,111 @@
+---
+import Base from '@/layouts/Base.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import Button from '@/components/Button.astro';
+import Todo from '@/components/Todo.astro';
+import Doodle from '@/components/Doodle.astro';
+import TestimonialCard from '@/components/TestimonialCard.astro';
+import CTASection from '@/components/CTASection.astro';
+import { breadcrumbs } from '@/lib/schema';
+
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Community', href: '/community' },
+];
+
+const looksLike = [
+  { t: 'Real introductions', d: "We don't hand you a member list — we walk you over and introduce you to the person you should meet.", icon: 'sparkle' },
+  { t: 'Curated events', d: 'Small, useful gatherings — founder dinners, creator jams, show-and-tells. Quality over headcount.', icon: 'coffee' },
+  { t: 'Collaborations', d: 'Members guest on each other\'s podcasts, trade skills, and build things together — the studio helps.', icon: 'mic' },
+] as const;
+---
+<Base
+  title="Coworking Community in Jaipur — Members & Creators | Mini"
+  description="The coworking community in Jaipur that's small on purpose — real member stories, curated events and hand-built introductions at Mini. Book a tour."
+  schema={[breadcrumbs(crumbs)]}
+>
+  <Breadcrumbs items={crumbs} />
+
+  <section class="mx-auto max-w-6xl px-4 pb-14 pt-10 sm:px-6 sm:pt-14">
+    <h1 class="max-w-3xl text-4xl font-semibold leading-[1.1] text-espresso sm:text-5xl">
+      The people make it
+      <span class="relative inline-block whitespace-nowrap">Mini.<Doodle kind="circle" class="absolute -inset-x-4 -inset-y-2 h-[calc(100%+1rem)] w-[calc(100%+2rem)] text-amber-brand" /></span>
+    </h1>
+    <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink/75">
+      A coworking community in Jaipur that's built by hand — founders, creators and small teams who actually know each
+      other, because we keep the room small enough that they can.
+    </p>
+  </section>
+
+  <!-- Member spotlights -->
+  <section class="bg-cream">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+      <h2 class="text-3xl font-semibold text-espresso">Member spotlights</h2>
+      <p class="mt-3 max-w-2xl text-ink/75">
+        Real members, in their own words. We're collecting these now — no invented testimonials, ever.
+      </p>
+      <div class="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <TestimonialCard />
+        <TestimonialCard />
+        <TestimonialCard />
+        <TestimonialCard />
+      </div>
+    </div>
+  </section>
+
+  <!-- What community looks like -->
+  <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+    <h2 class="text-3xl font-semibold text-espresso">What community looks like here</h2>
+    <div class="mt-9 grid gap-5 sm:grid-cols-3">
+      {looksLike.map((item) => (
+        <article class="rounded-3xl bg-white p-7 shadow-card">
+          <Doodle kind={item.icon} class="h-8 w-8 text-teal-deep" />
+          <h3 class="mt-4 text-lg font-semibold text-espresso">{item.t}</h3>
+          <p class="mt-1.5 text-sm leading-relaxed text-ink/70">{item.d}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Story series -->
+  <section id="day-in-the-life" class="bg-espresso text-cream">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+      <div class="grid items-center gap-8 lg:grid-cols-[1.5fr_auto]">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.22em] text-amber-brand">The Mini Brew — story series</p>
+          <h2 class="mt-3 text-3xl font-semibold">A Day in the Life at Mini</h2>
+          <p class="mt-4 max-w-xl leading-relaxed text-cream/80">
+            A running series about the people building here — what they're making, how they work, and what a day at Mini
+            actually feels like. First stories coming with our founding members. <Todo label="publish first member stories" class="!border-cream/50 !bg-cream/10 !text-cream" />
+          </p>
+        </div>
+        <Button href="/blog" variant="ghost" size="lg">Read the journal</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Events -->
+  <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+    <div class="grid gap-10 lg:grid-cols-2">
+      <div>
+        <h2 class="text-3xl font-semibold text-espresso">Upcoming events</h2>
+        <div class="mt-6 rounded-3xl border-2 border-dashed border-espresso/20 bg-cream p-8">
+          <p class="text-ink/70">Event calendar goes live with the space. <Todo label="add upcoming events" /></p>
+          <p class="mt-3 text-sm text-ink/70">
+            Meanwhile, follow <a href="https://www.instagram.com/minicoworks" target="_blank" rel="noopener" class="font-semibold text-teal-deep underline underline-offset-4">@minicoworks</a> for announcements.
+          </p>
+        </div>
+      </div>
+      <div>
+        <h2 class="text-3xl font-semibold text-espresso">How we keep it curated</h2>
+        <p class="mt-6 leading-relaxed text-ink/75">
+          Small on purpose. We cap the room and start every membership with a conversation, so the people around you are
+          worth knowing — and so "community" here means real introductions, not a dead group chat. If that sounds like
+          your kind of room, <a href="/contact#tour" class="font-semibold text-teal-deep underline underline-offset-4">come meet us</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CTASection heading="Come meet the room." body="The best introduction to the community is coffee with it. Book a tour and say hi." />
+</Base>

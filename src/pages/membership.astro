@@ -1,0 +1,153 @@
+---
+import Base from '@/layouts/Base.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import Button from '@/components/Button.astro';
+import Todo from '@/components/Todo.astro';
+import PricingCard from '@/components/PricingCard.astro';
+import FAQAccordion from '@/components/FAQAccordion.astro';
+import CTASection from '@/components/CTASection.astro';
+import { todoMark, SITE } from '@/lib/site';
+import { breadcrumbs, faqPage } from '@/lib/schema';
+
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Membership', href: '/membership' },
+];
+
+const todo = todoMark('confirm');
+const tiers = [
+  {
+    name: 'Social',
+    whoFor: 'For flexible days and staying plugged in.',
+    features: [`Hot-desk days per month — ${todo}`, 'Community events and intros', 'Coffee and Wi-Fi on visit days', 'WhatsApp concierge line'],
+  },
+  {
+    name: 'Flex',
+    whoFor: 'For regulars who want the room as a base.',
+    featured: true,
+    features: ['Unlimited hot-desk access', `Meeting-room credits — ${todo}`, `Studio-time preference — ${todo}`, 'Community events and intros', 'WhatsApp concierge line'],
+  },
+  {
+    name: 'Resident',
+    whoFor: 'For a desk (or cabin) of your own.',
+    features: [`Dedicated desk or private cabin — ${todo}`, `Meeting-room credits — ${todo}`, `Studio-time add-on rates — ${todo}`, 'Community events and intros', 'WhatsApp concierge line'],
+  },
+];
+
+const compare = [
+  { label: 'Workspace', values: ['Hot desk (limited days)', 'Hot desk (unlimited)', 'Dedicated desk / cabin'] },
+  { label: 'Meeting rooms', values: ['—', 'Credits [confirm]', 'Credits [confirm]'] },
+  { label: 'Studio access', values: ['Bookable hourly', 'Bookable + preference', 'Bookable + member rates'] },
+  { label: 'Community & events', values: ['Included', 'Included', 'Included'] },
+  { label: 'Concierge', values: ['Included', 'Included', 'Included'] },
+];
+
+const faqs = [
+  { q: 'Is there a lock-in period?', a: `No lock-in games — plans are designed to be simple and flexible. ${todoMark('confirm plan terms')}` },
+  { q: 'Can I switch plans later?', a: 'Yes — talk to us and we\'ll move you to whatever fits your rhythm.' },
+  { q: 'Does membership include the studio?', a: 'Studio time is an add-on on every plan, with member preference and rates. You can also book the studio without any membership.' },
+  { q: 'How do I join?', a: 'Book a tour first — Mini is curated, so we start with a conversation, not a form.' },
+];
+const faqSchema = faqPage([
+  { q: 'Can I switch plans later?', a: 'Yes — talk to us and we\'ll move you to whatever fits your rhythm.' },
+  { q: 'Does membership include the studio?', a: 'Studio time is an add-on on every plan, with member preference and rates. You can also book the studio without any membership.' },
+  { q: 'How do I join?', a: 'Book a tour first — Mini is curated, so we start with a conversation, not a form.' },
+]);
+
+// Offer schema for tiers — prices intentionally omitted until confirmed.
+const offersSchema = {
+  '@type': 'Product',
+  name: 'Mini Coworking Membership (Jaipur)',
+  description: 'Coworking membership in Jaipur — Social, Flex and Resident plans, each with community, concierge and studio add-on access.',
+  brand: { '@type': 'Brand', name: 'Mini' },
+  offers: tiers.map((t) => ({
+    '@type': 'Offer',
+    name: `${t.name} membership`,
+    priceCurrency: 'INR',
+    // price: TODO [confirm] — add once pricing is final
+    availability: 'https://schema.org/InStock',
+    url: `${SITE.url}/membership`,
+  })),
+};
+
+const schema = [breadcrumbs(crumbs), faqSchema, offersSchema];
+---
+<Base
+  title="Coworking Membership & Pricing in Jaipur | Mini"
+  description="Simple coworking membership in Jaipur — Social, Flex and Resident plans with community, concierge and studio add-ons. No lock-in games. Book a tour."
+  schema={schema}
+  viewEvent="membership_view"
+>
+  <Breadcrumbs items={crumbs} />
+
+  <section class="mx-auto max-w-6xl px-4 pb-14 pt-10 text-center sm:px-6 sm:pt-14">
+    <h1 class="text-4xl font-semibold leading-[1.1] text-espresso sm:text-5xl">Simple plans. No lock-in games.</h1>
+    <p class="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-ink/75">
+      A coworking membership in Jaipur that's honest and flexible: every plan includes the curated community and the
+      concierge — you're choosing how much room you need, not which tier of service you deserve.
+    </p>
+    <p class="mt-4"><Todo label="tier names + pricing to be confirmed — placeholders below" /></p>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
+    <div class="grid gap-6 lg:grid-cols-3">
+      {tiers.map((t) => (
+        <PricingCard name={t.name} whoFor={t.whoFor} features={t.features} featured={t.featured} />
+      ))}
+    </div>
+  </section>
+
+  <!-- Comparison table -->
+  <section class="bg-cream">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+      <h2 class="text-center text-3xl font-semibold text-espresso">Compare plans</h2>
+      <div class="mt-8 overflow-x-auto rounded-3xl bg-white shadow-card">
+        <table class="w-full min-w-[40rem] text-left text-sm">
+          <caption class="sr-only">Comparison of Mini membership plans</caption>
+          <thead>
+            <tr class="border-b border-espresso/10">
+              <th scope="col" class="px-6 py-4 font-semibold text-espresso">What you get</th>
+              {tiers.map((t) => <th scope="col" class="px-6 py-4 font-semibold text-espresso">{t.name}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {compare.map((row) => (
+              <tr class="border-b border-espresso/5 last:border-0">
+                <th scope="row" class="px-6 py-3.5 font-medium text-ink/80">{row.label}</th>
+                {row.values.map((v) => <td class="px-6 py-3.5 text-ink/70">{v}</td>)}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-4 text-center text-xs text-ink/70">Rows marked [confirm] are placeholders — final inclusions to be confirmed.</p>
+    </div>
+  </section>
+
+  <!-- Studio add-on -->
+  <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+    <div class="grid items-center gap-8 rounded-3xl bg-berry p-8 text-cream sm:p-12 lg:grid-cols-[1.5fr_auto]">
+      <div>
+        <h2 class="text-3xl font-semibold">Add the studio to any plan</h2>
+        <p class="mt-4 max-w-xl leading-relaxed text-cream/85">
+          Every membership can carry Mini Studio hours — record your podcast or batch your reels where you already work.
+          Studio time from ₹<Todo label="hourly rate" class="!border-cream/50 !bg-cream/10 !text-cream" />/hour.
+        </p>
+      </div>
+      <Button href="/studio" size="lg" event="studio_book_click">See the studio</Button>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="bg-cream">
+    <div class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+      <h2 class="text-center text-3xl font-semibold text-espresso">Membership FAQ</h2>
+      <div class="mt-9"><FAQAccordion items={faqs} /></div>
+    </div>
+  </section>
+
+  <CTASection
+    heading="Not sure which plan? Come feel the room."
+    body="Fifteen minutes in the space beats an hour of comparison tables. Book a tour — we'll help you pick."
+  />
+</Base>

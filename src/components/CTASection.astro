@@ -1,0 +1,29 @@
+---
+import Button from './Button.astro';
+import Doodle from './Doodle.astro';
+import { SITE } from '@/lib/site';
+interface Props {
+  heading?: string;
+  body?: string;
+  showWhatsApp?: boolean;
+}
+const {
+  heading = 'Come see the room.',
+  body = "The best way to feel the difference is to walk in. Book a tour and we'll show you around — coffee's on us.",
+  showWhatsApp = true,
+} = Astro.props;
+---
+<section class="bg-espresso text-cream">
+  <div class="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 sm:py-20">
+    <Doodle kind="coffee" class="mx-auto h-12 w-12 text-amber-brand" />
+    <h2 class="mt-4 text-3xl font-semibold sm:text-4xl">{heading}</h2>
+    <p class="mx-auto mt-4 max-w-xl text-base leading-relaxed text-cream/80">{body}</p>
+    <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+      <Button href="/contact#tour" size="lg" event="book_tour_click">Book a tour</Button>
+      {showWhatsApp && (
+        <Button href={SITE.whatsappUrl} size="lg" variant="ghost" event="whatsapp_click">WhatsApp us</Button>
+      )}
+    </div>
+    <slot />
+  </div>
+</section>

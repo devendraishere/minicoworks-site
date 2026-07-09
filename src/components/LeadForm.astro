@@ -1,0 +1,78 @@
+---
+/**
+ * Lead form — GitHub Pages has no form backend, and contact@minicoworks.com
+ * has no MX records yet, so email-based form services would drop messages.
+ * Until then: submit composes a WhatsApp message (the channel that actually
+ * delivers) and opens wa.me with it prefilled.
+ *
+ * TODO (when email/hosting is ready): switch back to Netlify Forms
+ * (add data-netlify="true" + hidden form-name input, action="/contact?sent=1#tour")
+ * or a Formspree action, and delete the submit handler below.
+ */
+import { SITE } from '@/lib/site';
+interface Props { defaultInterest?: string }
+const { defaultInterest } = Astro.props;
+const interests = ['Coworking', 'Studio', 'Membership', 'Incubator'];
+const input =
+  'w-full rounded-xl border border-espresso/20 bg-white px-4 py-3 text-base text-ink placeholder:text-ink/40 focus:border-amber-brand';
+---
+<div id="form-success" class="mb-4 hidden rounded-2xl border border-teal-brand/30 bg-teal-brand/10 p-4 text-sm font-medium text-teal-deep" role="status">
+  WhatsApp should have opened with your message ready — just hit send and we'll reply fast.
+</div>
+<div id="form-error" class="mb-4 hidden rounded-2xl border border-berry/30 bg-berry/10 p-4 text-sm font-medium text-berry" role="alert">
+  Couldn't open WhatsApp. Message us directly at <a href={SITE.whatsappUrl} target="_blank" rel="noopener" class="underline underline-offset-2">{SITE.phoneDisplay}</a>.
+</div>
+
+<form id="lead-form" class="space-y-4" data-whatsapp={SITE.whatsappUrl}>
+  <div class="grid gap-4 sm:grid-cols-2">
+    <div>
+      <label for="lead-name" class="mb-1.5 block text-sm font-semibold text-espresso">Name</label>
+      <input id="lead-name" name="name" type="text" required autocomplete="name" class={input} />
+    </div>
+    <div>
+      <label for="lead-phone" class="mb-1.5 block text-sm font-semibold text-espresso">Phone</label>
+      <input id="lead-phone" name="phone" type="tel" required autocomplete="tel" inputmode="tel" class={input} />
+    </div>
+  </div>
+  <div>
+    <label for="lead-email" class="mb-1.5 block text-sm font-semibold text-espresso">Email</label>
+    <input id="lead-email" name="email" type="email" required autocomplete="email" class={input} />
+  </div>
+  <div>
+    <label for="lead-interest" class="mb-1.5 block text-sm font-semibold text-espresso">I'm interested in</label>
+    <select id="lead-interest" name="interest" class={input}>
+      {interests.map((i) => (
+        <option value={i} selected={i === defaultInterest}>{i}</option>
+      ))}
+    </select>
+  </div>
+  <div>
+    <label for="lead-message" class="mb-1.5 block text-sm font-semibold text-espresso">Message</label>
+    <textarea id="lead-message" name="message" rows="4" class={input} placeholder="Tell us what you're building, or when you'd like to drop by."></textarea>
+  </div>
+  <button
+    type="submit"
+    class="inline-flex min-h-11 w-full items-center justify-center rounded-full bg-amber-brand px-8 py-3.5 text-base font-semibold text-espresso shadow-card transition-colors hover:bg-[#e89a52] sm:w-auto"
+  >Send via WhatsApp</button>
+  <p class="text-xs text-ink/70">Opens WhatsApp with your message prefilled — nothing sends until you hit send there.</p>
+</form>
+
+<script>
+  const form = document.getElementById('lead-form') as HTMLFormElement | null;
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const text = [
+      `Hi Mini! I'd like to book a tour / get in touch.`,
+      `Name: ${data.get('name')}`,
+      `Phone: ${data.get('phone')}`,
+      `Email: ${data.get('email')}`,
+      `Interested in: ${data.get('interest')}`,
+      data.get('message') ? `Message: ${data.get('message')}` : '',
+    ].filter(Boolean).join('\n');
+    const url = `${form.dataset.whatsapp}?text=${encodeURIComponent(text)}`;
+    const win = window.open(url, '_blank', 'noopener');
+    document.getElementById(win ? 'form-success' : 'form-error')?.classList.remove('hidden');
+    if (win) window.dispatchEvent(new CustomEvent('mini:track', { detail: { event: 'lead_submit' } }));
+  });
+</script>

@@ -1,0 +1,36 @@
+---
+import Button from './Button.astro';
+import Todo from './Todo.astro';
+interface Props {
+  name: string;
+  whoFor: string;
+  features: string[];
+  featured?: boolean;
+  nameConfirm?: boolean;
+}
+const { name, whoFor, features, featured = false, nameConfirm = true } = Astro.props;
+---
+<article
+  class={`flex flex-col rounded-3xl p-7 shadow-card ${
+    featured ? 'bg-espresso text-cream ring-2 ring-amber-brand' : 'bg-white text-ink'
+  }`}
+>
+  <h3 class={`text-2xl font-semibold ${featured ? 'text-cream' : 'text-espresso'}`}>
+    {name} {nameConfirm && <Todo label="tier name" />}
+  </h3>
+  <p class={`mt-1.5 text-sm ${featured ? 'text-cream/75' : 'text-ink/65'}`}>{whoFor}</p>
+  <p class={`mt-5 font-display text-3xl font-semibold ${featured ? 'text-amber-brand' : 'text-espresso'}`}>
+    ₹<Todo label="price" /><span class={`text-base font-sans font-normal ${featured ? 'text-cream/70' : 'text-ink/70'}`}>/month</span>
+  </p>
+  <ul class={`mt-5 flex-1 space-y-2.5 text-sm ${featured ? 'text-cream/85' : 'text-ink/80'}`}>
+    {features.map((f) => (
+      <li class="flex gap-2.5">
+        <svg class={`mt-0.5 h-4 w-4 shrink-0 ${featured ? 'text-amber-brand' : 'text-teal-brand'}`} viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 10.5 4 4 8-9"/></svg>
+        <span set:html={f} />
+      </li>
+    ))}
+  </ul>
+  <div class="mt-7">
+    <Button href="/contact#tour" event="book_tour_click" variant={featured ? 'primary' : 'secondary'} class="w-full">Book a tour</Button>
+  </div>
+</article>

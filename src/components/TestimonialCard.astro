@@ -1,0 +1,31 @@
+---
+/**
+ * Member spotlight card. Ships as a labelled placeholder until real member
+ * quotes exist (brief §1: never fabricate testimonials). Pass real `quote`,
+ * `name`, `role` once collected — the placeholder renders only when empty.
+ */
+import Todo from './Todo.astro';
+interface Props { quote?: string; name?: string; role?: string }
+const { quote, name, role } = Astro.props;
+---
+<figure class="flex flex-col rounded-3xl bg-white p-7 shadow-card">
+  {quote ? (
+    <>
+      <blockquote class="flex-1 text-[0.95rem] leading-relaxed text-ink/80">"{quote}"</blockquote>
+      <figcaption class="mt-5">
+        <p class="font-semibold text-espresso">{name}</p>
+        <p class="text-sm text-ink/70">{role}</p>
+      </figcaption>
+    </>
+  ) : (
+    <>
+      <div class="flex flex-1 flex-col items-start gap-3">
+        <svg class="h-8 w-8 text-amber-brand/50" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.5 5C6 5 3.5 7.7 3.5 11.2c0 3.9 2.9 6.9 6.7 7.8l.9-1.9c-2-.8-3.3-2.2-3.6-3.9.4.2.9.3 1.5.3 2 0 3.5-1.5 3.5-3.6C12.5 7.7 11.2 5 9.5 5Zm10 0C16 5 13.5 7.7 13.5 11.2c0 3.9 2.9 6.9 6.7 7.8l.9-1.9c-2-.8-3.3-2.2-3.6-3.9.4.2.9.3 1.5.3 2 0 3.5-1.5 3.5-3.6C22.5 7.7 21.2 5 19.5 5Z"/></svg>
+        <p class="text-[0.95rem] leading-relaxed text-ink/70">
+          A real member story goes here — name, what they're building, and their words. No invented testimonials.
+        </p>
+      </div>
+      <div class="mt-5"><Todo label="real member quote + photo" /></div>
+    </>
+  )}
+</figure>

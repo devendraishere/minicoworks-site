@@ -1,0 +1,17 @@
+---
+/**
+ * Google Map embed — intentionally a labelled placeholder until the address
+ * is confirmed against the Google Business Profile. To activate: replace the
+ * placeholder block with the GBP share-embed <iframe> (loading="lazy").
+ */
+import Todo from './Todo.astro';
+---
+<div class="flex min-h-64 flex-col items-center justify-center gap-3 rounded-3xl border-2 border-dashed border-espresso/20 bg-cream p-8 text-center">
+  <svg class="h-10 w-10 text-espresso/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+  </svg>
+  <p class="max-w-sm text-sm text-ink/70">
+    Google Map goes here once the address is live on the Google Business Profile.
+  </p>
+  <Todo label="embed GBP map (address must match exactly)" />
+</div>

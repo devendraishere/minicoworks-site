@@ -1,0 +1,173 @@
+---
+import Base from '@/layouts/Base.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import Button from '@/components/Button.astro';
+import Doodle from '@/components/Doodle.astro';
+import Todo from '@/components/Todo.astro';
+import FAQAccordion from '@/components/FAQAccordion.astro';
+import CTASection from '@/components/CTASection.astro';
+import { SITE, todoMark } from '@/lib/site';
+import { faqPage, service, breadcrumbs } from '@/lib/schema';
+
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Studio', href: '/studio' },
+];
+
+const formats = [
+  { name: 'Podcasts', d: 'Audio or video episodes, solo or with guests.', icon: 'mic' },
+  { name: 'Video interviews', d: 'Founder stories, expert conversations, client features.', icon: 'sparkle' },
+  { name: 'Reels & short-form', d: 'Batch-record a month of shorts in one sitting.', icon: 'arrow' },
+  { name: 'Brand & product shoots', d: 'Clean, consistent content for your business.', icon: 'coffee' },
+  { name: 'Voiceovers', d: 'Clean audio for ads, courses and explainers.', icon: 'mic' },
+] as const;
+
+const steps = [
+  { t: 'Pick a slot', d: 'Book by the hour — with or without a membership.' },
+  { t: 'Tell us your format', d: 'Podcast, reel, interview or shoot.' },
+  { t: 'We set it up', d: 'Walk into a room that\'s ready to record.' },
+  { t: 'You record', d: 'Just create — the tech is handled.' },
+  { t: 'Get your files', d: 'Take them raw, or ask about editing.' },
+];
+
+const faqs = [
+  { q: 'Do I need a membership to book the studio?', a: 'No — anyone can book Mini Studio. Members get preferential access and studio-time add-ons.' },
+  { q: 'Can you help with editing?', a: todoMark('confirm editing / production add-on') },
+  { q: 'What formats can I record?', a: 'Podcasts (audio and video), interviews, reels and short-form, brand shoots, and voiceovers.' },
+  { q: 'How many people fit in the studio?', a: todoMark('confirm seats / capacity') },
+  { q: 'Can I livestream from the studio?', a: todoMark('confirm livestream capability') },
+];
+const faqSchema = faqPage([
+  { q: 'Do I need a membership to book the studio?', a: 'No — anyone can book Mini Studio. Members get preferential access and studio-time add-ons.' },
+  { q: 'What formats can I record?', a: 'Podcasts (audio and video), interviews, reels and short-form, brand shoots, and voiceovers.' },
+]);
+
+const schema = [
+  breadcrumbs(crumbs),
+  faqSchema,
+  service({
+    name: 'Mini Studio — Podcast & Content Studio in Jaipur',
+    description: 'Turnkey podcast and content studio in Jaipur. Book by the hour — walk in, hit record, walk out with pro-grade audio and video.',
+    url: '/studio',
+    type: 'Recording studio',
+  }),
+];
+---
+<Base
+  title="Podcast & Content Studio in Jaipur — Mini Studio"
+  description="Jaipur's turnkey podcast and content studio. Walk in, hit record, walk out with pro-grade audio and video. Book by the hour — we handle the tech."
+  schema={schema}
+  viewEvent="studio_view"
+>
+  <Breadcrumbs items={crumbs} />
+
+  <!-- Hero -->
+  <section class="mx-auto max-w-6xl px-4 pb-14 pt-10 sm:px-6 sm:pb-20 sm:pt-14">
+    <div class="grid items-center gap-10 lg:grid-cols-[1.3fr_1fr]">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-[0.22em] text-berry">Mini Studio</p>
+        <h1 class="mt-4 text-4xl font-semibold leading-[1.08] text-espresso sm:text-5xl">
+          Jaipur's turnkey podcast studio — a creator studio that
+          <span class="relative inline-block whitespace-nowrap">just works.<Doodle kind="underline" class="absolute -bottom-2 left-0 w-full text-amber-brand" /></span>
+        </h1>
+        <p class="mt-5 max-w-xl text-lg leading-relaxed text-ink/75">
+          Walk in, hit record, walk out with pro content. Mini Studio is a ready-to-go podcast and content studio in
+          Jaipur — we handle the tech, you just create.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <Button href="/contact#tour" size="lg" event="studio_book_click">Book the studio</Button>
+          <Button href={SITE.whatsappUrl} size="lg" variant="whatsapp" event="whatsapp_click">WhatsApp us</Button>
+        </div>
+      </div>
+      <div class="mx-auto rounded-3xl bg-espresso p-10 text-center">
+        <Doodle kind="mic" class="mx-auto h-36 w-36 text-amber-brand" />
+        <p class="mt-4 text-xs text-cream/70">Studio photo/reel goes here · <Todo label="real studio photography" class="!border-cream/50 !bg-cream/10 !text-cream" /></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- What you can make -->
+  <section class="bg-cream">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
+      <h2 class="text-3xl font-semibold text-espresso sm:text-4xl">What you can make here</h2>
+      <div class="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {formats.map((f) => (
+          <article class="rounded-3xl bg-white p-7 shadow-card">
+            <Doodle kind={f.icon} class="h-8 w-8 text-teal-deep" />
+            <h3 class="mt-4 text-lg font-semibold text-espresso">{f.name}</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-ink/70">{f.d}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- What's included -->
+  <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
+    <div class="grid gap-10 lg:grid-cols-2">
+      <div>
+        <h2 class="text-3xl font-semibold text-espresso sm:text-4xl">What's included</h2>
+        <p class="mt-4 leading-relaxed text-ink/75">
+          The exact kit list is being finalised — no invented specs here. Expect a treated, ready-to-record room with the
+          setup handled for you.
+        </p>
+        <ul class="mt-6 space-y-3 text-ink/80">
+          <li class="flex items-start gap-2.5"><span class="mt-1 h-2 w-2 shrink-0 rounded-full bg-amber-brand"></span>Microphones &amp; audio chain — <Todo label="confirm mics / seats" /></li>
+          <li class="flex items-start gap-2.5"><span class="mt-1 h-2 w-2 shrink-0 rounded-full bg-amber-brand"></span>Camera(s) &amp; lighting — <Todo label="confirm video setup" /></li>
+          <li class="flex items-start gap-2.5"><span class="mt-1 h-2 w-2 shrink-0 rounded-full bg-amber-brand"></span>Acoustically treated room — <Todo label="confirm treatment details" /></li>
+          <li class="flex items-start gap-2.5"><span class="mt-1 h-2 w-2 shrink-0 rounded-full bg-amber-brand"></span>Backdrop &amp; set options — <Todo label="confirm" /></li>
+          <li class="flex items-start gap-2.5"><span class="mt-1 h-2 w-2 shrink-0 rounded-full bg-amber-brand"></span>On-hand operator / editing add-on — <Todo label="confirm" /></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="text-3xl font-semibold text-espresso sm:text-4xl">Pricing</h2>
+        <div class="mt-6 rounded-3xl bg-white p-7 shadow-card">
+          <p class="font-display text-3xl font-semibold text-espresso">from ₹<Todo label="hourly rate" /><span class="font-sans text-base font-normal text-ink/70">/hour</span></p>
+          <p class="mt-3 text-sm leading-relaxed text-ink/70">
+            Packages for regular creators — <Todo label="confirm packages" />. Members can add studio time to any plan.
+          </p>
+          <div class="mt-6"><Button href="/contact#tour" event="studio_book_click" class="w-full">Book the studio</Button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="bg-cream">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
+      <h2 class="text-center text-3xl font-semibold text-espresso sm:text-4xl">How it works</h2>
+      <ol class="mx-auto mt-10 grid max-w-5xl gap-4 sm:grid-cols-3 lg:grid-cols-5">
+        {steps.map((s, i) => (
+          <li class="rounded-3xl bg-white p-6 text-center shadow-card">
+            <span class="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-amber-brand font-display font-semibold text-espresso">{i + 1}</span>
+            <h3 class="mt-3.5 font-semibold text-espresso">{s.t}</h3>
+            <p class="mt-1 text-sm text-ink/70">{s.d}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Community tie-in -->
+  <section class="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6 sm:py-20">
+    <Doodle kind="sparkle" class="mx-auto h-9 w-9 text-berry" />
+    <h2 class="mt-3 text-3xl font-semibold text-espresso sm:text-4xl">Plugged into a community</h2>
+    <p class="mt-5 text-lg leading-relaxed text-ink/75">
+      Record where the creators are. Mini Studio lives inside a curated <a href="/community" class="font-semibold text-teal-deep underline underline-offset-4">coworking community</a> —
+      collaborate, cross-promote, and guest-swap with the people working around you.
+    </p>
+  </section>
+
+  <!-- FAQ -->
+  <section class="bg-cream">
+    <div class="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-20">
+      <h2 class="text-center text-3xl font-semibold text-espresso sm:text-4xl">Studio FAQ</h2>
+      <div class="mt-9"><FAQAccordion items={faqs} /></div>
+    </div>
+  </section>
+
+  <CTASection
+    heading="Ready to press record?"
+    body="Tell us your date, your format, and how many people — we'll confirm your slot and have the room ready."
+  />
+</Base>

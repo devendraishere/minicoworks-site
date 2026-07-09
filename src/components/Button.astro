@@ -1,0 +1,28 @@
+---
+interface Props {
+  href: string;
+  variant?: 'primary' | 'secondary' | 'ghost' | 'whatsapp';
+  size?: 'md' | 'lg';
+  event?: string; // GA4 event name fired on click (see Base.astro tracker)
+  class?: string;
+}
+const { href, variant = 'primary', size = 'md', event, class: className = '' } = Astro.props;
+const base =
+  'inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors duration-150 min-h-11 whitespace-nowrap';
+const sizes = { md: 'px-6 py-2.5 text-sm', lg: 'px-8 py-3.5 text-base' };
+const variants = {
+  primary: 'bg-amber-brand text-espresso hover:bg-[#e89a52] shadow-card',
+  secondary: 'border-2 border-espresso/25 text-espresso hover:border-espresso hover:bg-espresso hover:text-cream',
+  ghost: 'border-2 border-cream/40 text-cream hover:bg-cream hover:text-espresso',
+  whatsapp: 'bg-teal-brand text-cream hover:bg-teal-deep shadow-card',
+};
+const external = href.startsWith('http');
+---
+<a
+  href={href}
+  class={`${base} ${sizes[size]} ${variants[variant]} ${className}`}
+  data-event={event}
+  {...external ? { target: '_blank', rel: 'noopener' } : {}}
+>
+  <slot />
+</a>

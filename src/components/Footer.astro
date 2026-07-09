@@ -1,0 +1,68 @@
+---
+import { SITE, TODO_CONFIRM } from '@/lib/site';
+import Logo from './Logo.astro';
+import Todo from './Todo.astro';
+const year = new Date().getFullYear();
+const cols = [
+  {
+    title: 'Visit',
+    links: [
+      { label: 'Spaces', href: '/spaces' },
+      { label: 'Studio', href: '/studio' },
+      { label: 'Membership', href: '/membership' },
+    ],
+  },
+  {
+    title: 'Mini',
+    links: [
+      { label: 'Community', href: '/community' },
+      { label: 'About', href: '/about' },
+      { label: 'Blog', href: '/blog' },
+      { label: 'Contact', href: '/contact' },
+    ],
+  },
+];
+---
+<footer class="bg-espresso text-cream">
+  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.4fr_1fr_1fr_1.4fr]">
+    <div>
+      <a href="/" class="flex items-center gap-2" aria-label="Mini — home">
+        <Logo class="h-10 w-10" tone="light" />
+        <span class="font-display text-2xl font-semibold">mini</span>
+      </a>
+      <p class="mt-4 max-w-xs text-sm leading-relaxed text-cream/75">
+        A boutique coworking space and creator studio in Jaipur. Work, record, grow — in a room that knows you.
+      </p>
+    </div>
+
+    {cols.map((col) => (
+      <nav aria-label={col.title}>
+        <h2 class="font-sans text-xs font-semibold uppercase tracking-[0.18em] text-amber-brand">{col.title}</h2>
+        <ul class="mt-4 space-y-2.5">
+          {col.links.map((l) => (
+            <li><a href={l.href} class="text-sm text-cream/80 hover:text-cream hover:underline underline-offset-4">{l.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+    ))}
+
+    <div class="text-sm text-cream/80">
+      <h2 class="font-sans text-xs font-semibold uppercase tracking-[0.18em] text-amber-brand">Find us</h2>
+      <!-- NAP block: must match the Google Business Profile exactly once confirmed -->
+      <address class="mt-4 space-y-2.5 not-italic">
+        <p><Todo label="address (match Google Business Profile)" /></p>
+        <p><Todo label="hours" /></p>
+        <p><a href={`tel:${SITE.phoneE164}`} class="hover:underline underline-offset-4">{SITE.phoneDisplay}</a></p>
+        <p><a href={`mailto:${SITE.email}`} class="hover:underline underline-offset-4">{SITE.email}</a></p>
+        <p class="flex flex-wrap gap-x-3 gap-y-1">
+          <a href={SITE.instagram.coworking.url} target="_blank" rel="noopener" class="hover:underline underline-offset-4">Instagram {SITE.instagram.coworking.handle}</a>
+          <a href={SITE.instagram.studio.url} target="_blank" rel="noopener" class="hover:underline underline-offset-4">{SITE.instagram.studio.handle}</a>
+        </p>
+        <p><a href={SITE.whatsappUrl} target="_blank" rel="noopener" data-event="whatsapp_click" class="hover:underline underline-offset-4">WhatsApp us</a></p>
+      </address>
+    </div>
+  </div>
+  <div class="border-t border-cream/10">
+    <p class="mx-auto max-w-6xl px-4 py-5 text-xs text-cream/70 sm:px-6">© {year} {SITE.legalName}. Small on purpose, in {SITE.city}.</p>
+  </div>
+</footer>

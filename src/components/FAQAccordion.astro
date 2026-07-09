@@ -1,0 +1,22 @@
+---
+/**
+ * Accessible, zero-JS accordion (native <details>). Pair with faqPage()
+ * JSON-LD in the page's `schema` prop — pass the SAME items there.
+ * `a` may contain simple HTML (e.g. a <mark> TODO placeholder).
+ */
+interface Props { items: { q: string; a: string }[] }
+const { items } = Astro.props;
+---
+<div class="divide-y divide-espresso/10 rounded-3xl bg-white shadow-card">
+  {items.map((item) => (
+    <details class="faq group px-6 py-1.5">
+      <summary class="flex min-h-11 cursor-pointer items-center justify-between gap-4 py-3.5 text-left font-semibold text-espresso">
+        <span>{item.q}</span>
+        <span class="faq-icon flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-amber-brand/15 text-amber-deep" aria-hidden="true">
+          <svg class="h-4 w-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10 4v12M4 10h12"/></svg>
+        </span>
+      </summary>
+      <div class="pb-5 pr-10 text-[0.95rem] leading-relaxed text-ink/75" set:html={item.a} />
+    </details>
+  ))}
+</div>

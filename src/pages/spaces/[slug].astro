@@ -1,0 +1,110 @@
+---
+import Base from '@/layouts/Base.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import Button from '@/components/Button.astro';
+import Todo from '@/components/Todo.astro';
+import CTASection from '@/components/CTASection.astro';
+import { SPACES, SITE } from '@/lib/site';
+import { breadcrumbs, service } from '@/lib/schema';
+
+export function getStaticPaths() {
+  return SPACES.map((s) => ({ params: { slug: s.slug }, props: { space: s } }));
+}
+
+const { space } = Astro.props;
+
+// Per-space copy, conformant to the pillars — no invented facts.
+const detail: Record<string, { h1: string; title: string; meta: string; body: string[]; points: string[] }> = {
+  'hot-desk': {
+    h1: 'Hot Desk — flexible coworking in Jaipur',
+    title: 'Hot Desk in Jaipur — Flexible Coworking Seat | Mini',
+    meta: 'Grab any open seat at Mini, a boutique coworking space in Jaipur. Flexible hot desks with community, coffee and concierge included.',
+    body: [
+      'A hot desk at Mini is the simplest way in: walk in, grab any open seat, and get to work. Perfect for flexible days, in-between weeks, or trying the room before you commit.',
+      "Even on a drop-in seat, you're not anonymous — we'll know your name by the second visit, and the concierge handles your day like everyone else's.",
+    ],
+    points: ['Any open seat, no assigned desk', 'Full community access — events and intros', 'Coffee and Wi-Fi included', 'Concierge help via WhatsApp'],
+  },
+  'dedicated-desk': {
+    h1: 'Dedicated Desk — your own spot in Jaipur',
+    title: 'Dedicated Desk in Jaipur — Your Own Spot | Mini',
+    meta: 'A dedicated desk at Mini coworking, Jaipur — your own consistent spot, set up the way you like it, with community and concierge included.',
+    body: [
+      'A dedicated desk is your own spot at Mini — same seat every day, set up the way you like it. Leave your monitor, keep your rhythm, skip the morning seat hunt.',
+      "It's the sweet spot for solopreneurs and creators who want a real base: consistent, personal, and surrounded by people worth knowing.",
+    ],
+    points: ['Your own reserved desk, always', 'Leave your setup in place', 'Full community access — events and intros', 'Concierge help via WhatsApp'],
+  },
+  'private-cabin': {
+    h1: 'Private Cabin — a lockable office in Jaipur',
+    title: 'Private Cabin in Jaipur — Lockable Team Room | Mini',
+    meta: 'A private, lockable cabin at Mini coworking, Jaipur — a quiet room for you or a small team, with the community and concierge right outside the door.',
+    body: [
+      'A private cabin gives you a quiet, lockable room of your own — for focused solo work or a small team that needs its own door.',
+      'You get the privacy of an office without the isolation of one: step out and the community, the coffee, and the studio are right there.',
+    ],
+    points: ['Quiet, lockable room', 'For individuals or small teams', 'Community and events right outside', 'Concierge handles the day-to-day'],
+  },
+  'meeting-room': {
+    h1: 'Meeting Room — book by the hour in Jaipur',
+    title: 'Meeting Room in Jaipur — Book by the Hour | Mini',
+    meta: 'Book a meeting room in Jaipur by the hour at Mini — for client calls, pitches and workshops, set up and ready before you walk in.',
+    body: [
+      'Book Mini\'s meeting room by the hour for client calls, pitches and workshops. Tell us the format and we\'ll have the room set up before you arrive.',
+      'Members use meeting-room credits; non-members can book by the hour. Either way, you walk into a room that\'s ready.',
+    ],
+    points: ['Book by the hour', 'Set up for calls, pitches and workshops', 'Member credits available', 'Concierge sets the room up for you'],
+  },
+};
+
+const d = detail[space.slug];
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Spaces', href: '/spaces' },
+  { name: space.name, href: `/spaces/${space.slug}` },
+];
+const schema = [
+  breadcrumbs(crumbs),
+  service({ name: `${space.name} at Mini, Jaipur`, description: space.description, url: `/spaces/${space.slug}`, type: 'Coworking space' }),
+];
+---
+<Base title={d.title} description={d.meta} schema={schema}>
+  <Breadcrumbs items={crumbs} />
+
+  <section class="mx-auto max-w-6xl px-4 pb-16 pt-10 sm:px-6 sm:pt-14">
+    <div class="grid gap-10 lg:grid-cols-[1.4fr_1fr]">
+      <div>
+        <h1 class="text-4xl font-semibold leading-[1.1] text-espresso sm:text-5xl">{d.h1}</h1>
+        {d.body.map((p) => (
+          <p class="mt-5 max-w-2xl text-lg leading-relaxed text-ink/75">{p}</p>
+        ))}
+        <ul class="mt-7 space-y-3">
+          {d.points.map((point) => (
+            <li class="flex items-start gap-2.5 text-ink/80">
+              <svg class="mt-1 h-4 w-4 shrink-0 text-teal-brand" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 10.5 4 4 8-9"/></svg>
+              {point}
+            </li>
+          ))}
+        </ul>
+        <div class="mt-9 flex flex-wrap gap-3">
+          <Button href="/contact#tour" size="lg" event="book_tour_click">Book a tour</Button>
+          <Button href={SITE.whatsappUrl} size="lg" variant="whatsapp" event="whatsapp_click">WhatsApp us</Button>
+        </div>
+      </div>
+      <aside class="h-fit rounded-3xl bg-white p-7 shadow-card">
+        <h2 class="text-lg font-semibold text-espresso">At a glance</h2>
+        <dl class="mt-4 space-y-3 text-sm">
+          <div class="flex justify-between gap-4"><dt class="text-ink/70">Pricing</dt><dd class="font-semibold text-espresso">from ₹<Todo label="price" /></dd></div>
+          <div class="flex justify-between gap-4"><dt class="text-ink/70">Community access</dt><dd class="font-semibold text-espresso">Included</dd></div>
+          <div class="flex justify-between gap-4"><dt class="text-ink/70">Concierge</dt><dd class="font-semibold text-espresso">Included</dd></div>
+          <div class="flex justify-between gap-4"><dt class="text-ink/70">Studio add-on</dt><dd class="font-semibold text-espresso"><a href="/studio" class="text-teal-deep underline underline-offset-4">Available</a></dd></div>
+        </dl>
+        <p class="mt-5 text-xs leading-relaxed text-ink/70">
+          Compare all plans on the <a href="/membership" class="font-semibold text-teal-deep underline underline-offset-4">membership page</a>, or see the other <a href="/spaces" class="font-semibold text-teal-deep underline underline-offset-4">spaces</a>.
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  <CTASection />
+</Base>

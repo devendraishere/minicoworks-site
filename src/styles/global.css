@@ -1,0 +1,79 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/fraunces';
+@import '@fontsource-variable/inter';
+
+@theme {
+  /* Mini brand palette (build brief §8) */
+  --color-espresso: #2e2320;
+  --color-ink: #2b2320;
+  --color-cream: #f7f1ea;
+  --color-amber-brand: #de8a3b;
+  --color-amber-deep: #b96f2a;
+  --color-teal-brand: #2f7d6b;
+  --color-teal-deep: #24614f;
+  --color-berry: #9b4b5a;
+  --color-cream-soft: #fcf8f3;
+
+  --font-display: 'Fraunces Variable', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-card: 0 1px 2px rgb(46 35 32 / 0.06), 0 8px 24px -8px rgb(46 35 32 / 0.14);
+  --shadow-card-hover: 0 2px 4px rgb(46 35 32 / 0.08), 0 16px 32px -8px rgb(46 35 32 / 0.18);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background-color: var(--color-cream-soft);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display);
+  font-variation-settings: 'SOFT' 50, 'WONK' 1;
+}
+
+/* Visible focus states (WCAG 2.1 AA) */
+:focus-visible {
+  outline: 3px solid var(--color-amber-brand);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: var(--color-amber-brand);
+  color: var(--color-espresso);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* FAQ accordion marker */
+details.faq > summary { list-style: none; }
+details.faq > summary::-webkit-details-marker { display: none; }
+details.faq > summary .faq-icon { transition: transform 0.2s ease; }
+details.faq[open] > summary .faq-icon { transform: rotate(45deg); }
+
+/* Blog article typography */
+.prose-mini { max-width: 68ch; }
+.prose-mini h2 { font-family: var(--font-display); font-size: 1.6rem; line-height: 1.25; margin: 2.25rem 0 0.75rem; color: var(--color-espresso); }
+.prose-mini h3 { font-family: var(--font-display); font-size: 1.25rem; margin: 1.75rem 0 0.5rem; color: var(--color-espresso); }
+.prose-mini p { margin: 0.9rem 0; line-height: 1.75; }
+.prose-mini ul, .prose-mini ol { margin: 0.9rem 0 0.9rem 1.4rem; line-height: 1.7; }
+.prose-mini ul { list-style: disc; }
+.prose-mini ol { list-style: decimal; }
+.prose-mini li { margin: 0.35rem 0; }
+.prose-mini a { color: var(--color-teal-deep); text-decoration: underline; text-underline-offset: 3px; }
+.prose-mini a:hover { color: var(--color-amber-deep); }
+.prose-mini strong { color: var(--color-espresso); }
+.prose-mini blockquote { border-left: 3px solid var(--color-amber-brand); padding-left: 1rem; font-style: italic; color: #5a4a42; margin: 1.25rem 0; }
