@@ -50,14 +50,17 @@ const crumbs = [
           </ul>
         </div>
 
-        <!-- NAP: must match the Google Business Profile exactly once confirmed -->
+        <!-- NAP: matches the Google Business Profile ("Mini Coworks") exactly -->
         <div class="rounded-3xl bg-white p-7 shadow-card">
           <h2 class="text-lg font-semibold text-espresso">Visit</h2>
           <address class="mt-4 space-y-2.5 text-sm not-italic text-ink/75">
-            <p><span class="font-semibold text-espresso">Mini Coworking Spaces + Mini Studio</span></p>
-            <p><Todo label="street address (match Google Business Profile exactly)" /></p>
-            <p>Jaipur, Rajasthan</p>
-            <p><Todo label="opening hours" /></p>
+            <p><span class="font-semibold text-espresso">{SITE.gbpName}</span> · Mini Coworking Space + Mini Studio</p>
+            <p>{SITE.address.line1}</p>
+            <p>{SITE.address.locality}, {SITE.city}, {SITE.region} {SITE.address.postalCode}</p>
+            <p class="font-medium text-espresso/85">{SITE.hoursDisplay}</p>
+            <p>
+              <a href={SITE.mapsUrl} target="_blank" rel="noopener" class="font-semibold text-teal-deep underline underline-offset-4">Get directions →</a>
+            </p>
           </address>
         </div>
 

@@ -1,7 +1,6 @@
 ---
-import { SITE, TODO_CONFIRM } from '@/lib/site';
+import { SITE } from '@/lib/site';
 import Logo from './Logo.astro';
-import Todo from './Todo.astro';
 const year = new Date().getFullYear();
 const cols = [
   {
@@ -48,10 +47,14 @@ const cols = [
 
     <div class="text-sm text-cream/80">
       <h2 class="font-sans text-xs font-semibold uppercase tracking-[0.18em] text-amber-brand">Find us</h2>
-      <!-- NAP block: must match the Google Business Profile exactly once confirmed -->
+      <!-- NAP block: matches the Google Business Profile ("Mini Coworks") exactly -->
       <address class="mt-4 space-y-2.5 not-italic">
-        <p><Todo label="address (match Google Business Profile)" /></p>
-        <p><Todo label="hours" /></p>
+        <p>
+          <a href={SITE.mapsUrl} target="_blank" rel="noopener" class="hover:underline underline-offset-4">
+            {SITE.gbpName} — {SITE.address.full}
+          </a>
+        </p>
+        <p>{SITE.hoursDisplay}</p>
         <p><a href={`tel:${SITE.phoneE164}`} class="hover:underline underline-offset-4">{SITE.phoneDisplay}</a></p>
         <p><a href={`mailto:${SITE.email}`} class="hover:underline underline-offset-4">{SITE.email}</a></p>
         <p class="flex flex-wrap gap-x-3 gap-y-1">

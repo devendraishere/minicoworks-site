@@ -1,6 +1,6 @@
 # Mini — Marketing Website
 
-Fast, SEO-first marketing site for **Mini Coworking Spaces + Mini Studio (Jaipur)**.
+Fast, SEO-first marketing site for **Mini Coworking Space + Mini Studio (Jaipur)**.
 Astro 5 + Tailwind CSS 4, MDX blog, static output. Copy conforms to
 `../projects/mini-coworking-studio/marketing/website/website-copy.md` and
 `../projects/mini-coworking-studio/marketing/value-proposition.md`.
@@ -20,7 +20,7 @@ npm run preview    # serve the production build locally
 push to `main` → `.github/workflows/deploy.yml` builds and deploys. Custom domain
 `www.minicoworks.com` (CNAME in `public/`); apex redirects to www.
 
-**Forms note:** GitHub Pages has no form backend and contact@minicoworks.com has **no MX
+**Forms note:** GitHub Pages has no form backend and contact@minicoworks.com NOW HAS MX (Zoho Mail, since 2026-07) — email form services will deliver. Previously had no MX
 records yet**, so the lead + newsletter forms currently open WhatsApp with the message
 prefilled. When email/hosting is sorted, swap back to Netlify Forms or Formspree — the
 wiring is documented in `src/components/LeadForm.astro`.

@@ -1,28 +1,34 @@
 import { SITE } from './site';
 
 /**
- * JSON-LD builders. NOTE: address/geo/openingHours are intentionally OMITTED
- * until confirmed against the Google Business Profile — shipping a wrong NAP
- * is worse for local SEO than shipping none. Fill the TODOs in ONE place here.
+ * JSON-LD builders. NAP below matches the live Google Business Profile
+ * ("Mini Coworks", verified 2026-09-12) — keep the two in lockstep.
  */
 
-// TODO [confirm]: fill from Google Business Profile, then uncomment in localBusiness():
-// const ADDRESS = {
-//   '@type': 'PostalAddress',
-//   streetAddress: '…',
-//   addressLocality: 'Jaipur',
-//   addressRegion: 'Rajasthan',
-//   postalCode: '…',
-//   addressCountry: 'IN',
-// };
-// const GEO = { '@type': 'GeoCoordinates', latitude: 0, longitude: 0 };
-// const OPENING_HOURS = [{ '@type': 'OpeningHoursSpecification', dayOfWeek: […], opens: '09:00', closes: '19:00' }];
+const ADDRESS = {
+  '@type': 'PostalAddress',
+  streetAddress: '1st Floor, Plot No. D-122, Vivek Vihar, Shyam Nagar',
+  addressLocality: 'Jaipur',
+  addressRegion: 'Rajasthan',
+  postalCode: '302019',
+  addressCountry: 'IN',
+};
+const GEO = { '@type': 'GeoCoordinates', latitude: 26.888214, longitude: 75.7611853 };
+// GBP hours: Mon–Sat 8 am–10 pm, Sunday closed
+const OPENING_HOURS = [
+  {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    opens: '08:00',
+    closes: '22:00',
+  },
+];
 
 export function organization() {
   return {
     '@type': 'Organization',
     '@id': `${SITE.url}/#organization`,
-    name: 'Mini Coworking Spaces',
+    name: 'Mini Coworking Space',
     alternateName: ['Mini', 'Mini Studio'],
     url: SITE.url,
     email: SITE.email,
@@ -37,7 +43,8 @@ export function localBusiness() {
   return {
     '@type': 'LocalBusiness',
     '@id': `${SITE.url}/#localbusiness`,
-    name: 'Mini Coworking Spaces + Mini Studio',
+    name: 'Mini Coworks', // matches Google Business Profile exactly
+    alternateName: ['Mini Coworking Space + Mini Studio', 'Mini Studio'],
     description:
       'A boutique coworking space and creator studio in Jaipur — curated community, concierge-style service, and a podcast studio built in.',
     url: SITE.url,
@@ -46,10 +53,11 @@ export function localBusiness() {
     image: `${SITE.url}/og/og-default.png`,
     logo: `${SITE.url}/logo.svg`,
     sameAs: [SITE.instagram.coworking.url, SITE.instagram.studio.url],
-    // priceRange: '₹₹', // TODO [confirm]: set once pricing is confirmed
-    // address: ADDRESS,          // TODO [confirm] — must match GBP exactly
-    // geo: GEO,                  // TODO [confirm]
-    // openingHoursSpecification: OPENING_HOURS, // TODO [confirm]
+    // priceRange: TODO [confirm] — set once pricing is confirmed
+    address: ADDRESS,
+    geo: GEO,
+    openingHoursSpecification: OPENING_HOURS,
+    hasMap: SITE.mapsUrl,
     areaServed: { '@type': 'City', name: 'Jaipur' },
   };
 }

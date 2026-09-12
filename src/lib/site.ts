@@ -7,7 +7,7 @@
 export const SITE = {
   name: 'Mini',
   legalName: 'Mini Spaces',
-  brandLine: 'Mini Coworking Spaces · Mini Studio — Jaipur',
+  brandLine: 'Mini Coworking Space · Mini Studio — Jaipur',
   tagline: 'Work. Record. Grow.',
   url: 'https://www.minicoworks.com',
   email: 'contact@minicoworks.com',
@@ -21,13 +21,21 @@ export const SITE = {
   city: 'Jaipur',
   region: 'Rajasthan',
   country: 'IN',
+  /** NAP — matches the Google Business Profile ("Mini Coworks") EXACTLY. Verified 2026-09-12. */
+  gbpName: 'Mini Coworks',
+  address: {
+    line1: '1st Floor, Plot No. D-122, Vivek Vihar',
+    locality: 'Shyam Nagar',
+    full: '1st Floor, Plot No. D-122, Vivek Vihar, Shyam Nagar, Jaipur, Rajasthan 302019',
+    postalCode: '302019',
+  },
+  geo: { lat: 26.888214, lng: 75.7611853 },
+  hoursDisplay: 'Mon–Sat 8 am – 10 pm · Sunday closed',
+  mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Mini+Coworks+Vivek+Vihar+Shyam+Nagar+Jaipur',
 } as const;
 
-/** Values that must come from Devendra / Google Business Profile — keep visible as TODOs. */
+/** Values still to come from Devendra — keep visible as TODOs (never invent). */
 export const TODO_CONFIRM = {
-  address: 'Address — [confirm: must match Google Business Profile exactly]',
-  locality: '[locality — confirm]',
-  hours: 'Hours — [confirm]',
   priceCoworking: '[confirm]',
   priceStudio: '[confirm]',
   memberCount: '[X] members — [confirm]',

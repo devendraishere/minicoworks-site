@@ -13,7 +13,7 @@ import { SITE, SPACES, todoMark } from '@/lib/site';
 import { faqPage, service } from '@/lib/schema';
 
 const faqs = [
-  { q: 'Where is Mini located?', a: `We're in Jaipur. ${todoMark('address / locality — confirm')}` },
+  { q: 'Where is Mini located?', a: `1st Floor, Plot No. D-122, Vivek Vihar, Shyam Nagar, Jaipur — <a href="${SITE.mapsUrl}" target="_blank" rel="noopener" class="font-semibold text-teal-deep underline underline-offset-4">find us on Google Maps</a>. Open Mon–Sat, 8 am to 10 pm.` },
   { q: 'Do you have a podcast studio?', a: 'Yes — Mini Studio is on site. You can book it with or without a membership.' },
   { q: 'Can I try before joining?', a: 'Absolutely. Book a free tour, or ask us about a day pass.' },
   { q: "What's included in a membership?", a: `Wi-Fi, coffee, meeting-room credits, community events, and concierge help. ${todoMark('confirm inclusions')}` },
@@ -23,6 +23,7 @@ const faqs = [
 ];
 // Schema answers: plain-text, unconfirmed details omitted rather than invented.
 const faqSchema = faqPage([
+  { q: 'Where is Mini located?', a: '1st Floor, Plot No. D-122, Vivek Vihar, Shyam Nagar, Jaipur, Rajasthan 302019. Open Monday to Saturday, 8 am to 10 pm.' },
   { q: 'Do you have a podcast studio?', a: 'Yes — Mini Studio is on site. You can book it with or without a membership.' },
   { q: 'Can I try before joining?', a: 'Yes. Book a free tour, or ask us about a day pass.' },
 ]);
@@ -65,7 +66,7 @@ const schema = [
         </a>
       </div>
       <p class="mt-10 text-sm text-cream/70">
-        A curated community in <Todo label="locality" />, Jaipur · <Todo label="member count" /> and growing
+        A curated community in Vivek Vihar, Shyam Nagar, Jaipur · <Todo label="member count" /> and growing
       </p>
     </div>
   </section>
@@ -207,7 +208,8 @@ const schema = [
       home base built here, for the people building here.
     </p>
     <p class="mt-4 text-sm text-ink/70">
-      Easy to reach from localities across Jaipur — <Todo label="list nearby areas (e.g. specific localities) once address is confirmed" />
+      Find us in Vivek Vihar, Shyam Nagar — minutes from Ajmer Road and New Sanganer Road, easy to reach from
+      Mansarovar, Sodala and Vaishali Nagar.
     </p>
   </section>
 
