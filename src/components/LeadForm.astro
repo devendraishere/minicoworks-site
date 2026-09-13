@@ -1,13 +1,10 @@
 ---
 /**
- * Lead form — GitHub Pages has no form backend, and contact@minicoworks.com
- * NOW has MX records (Zoho Mail) — email-based form services WILL deliver. Safe to wire the form to email.
- * Until then: submit composes a WhatsApp message (the channel that actually
- * delivers) and opens wa.me with it prefilled.
- *
- * TODO (when email/hosting is ready): switch back to Netlify Forms
- * (add data-netlify="true" + hidden form-name input, action="/contact?sent=1#tour")
- * or a Formspree action, and delete the submit handler below.
+ * Lead form → emails contact@minicoworks.com via FormSubmit (no backend
+ * needed on GitHub Pages; MX is live on Zoho since 2026-07).
+ * NOTE: FormSubmit requires a ONE-TIME activation — the first submission
+ * triggers an activation email to contact@; forwarding starts after that
+ * link is clicked. WhatsApp remains offered as the fast alternative.
  */
 import { SITE } from '@/lib/site';
 interface Props { defaultInterest?: string }
@@ -17,13 +14,20 @@ const input =
   'w-full rounded-xl border border-espresso/20 bg-white px-4 py-3 text-base text-ink placeholder:text-ink/40 focus:border-amber-brand';
 ---
 <div id="form-success" class="mb-4 hidden rounded-2xl border border-teal-brand/30 bg-teal-brand/10 p-4 text-sm font-medium text-teal-deep" role="status">
-  WhatsApp should have opened with your message ready — just hit send and we'll reply fast.
-</div>
-<div id="form-error" class="mb-4 hidden rounded-2xl border border-berry/30 bg-berry/10 p-4 text-sm font-medium text-berry" role="alert">
-  Couldn't open WhatsApp. Message us directly at <a href={SITE.whatsappUrl} target="_blank" rel="noopener" class="underline underline-offset-2">{SITE.phoneDisplay}</a>.
+  Thanks — we got your message and will reply the same day. Want it instant? <a href={SITE.whatsappUrl} target="_blank" rel="noopener" class="underline underline-offset-2">WhatsApp us</a>.
 </div>
 
-<form id="lead-form" class="space-y-4" data-whatsapp={SITE.whatsappUrl}>
+<form
+  action="https://formsubmit.co/contact@minicoworks.com"
+  method="POST"
+  class="space-y-4"
+>
+  <input type="hidden" name="_subject" value="New enquiry — minicoworks.com" />
+  <input type="hidden" name="_template" value="table" />
+  <input type="hidden" name="_captcha" value="false" />
+  <input type="hidden" name="_next" value={`${SITE.url}/contact?sent=1#tour`} />
+  <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
   <div class="grid gap-4 sm:grid-cols-2">
     <div>
       <label for="lead-name" class="mb-1.5 block text-sm font-semibold text-espresso">Name</label>
@@ -50,29 +54,22 @@ const input =
     <label for="lead-message" class="mb-1.5 block text-sm font-semibold text-espresso">Message</label>
     <textarea id="lead-message" name="message" rows="4" class={input} placeholder="Tell us what you're building, or when you'd like to drop by."></textarea>
   </div>
-  <button
-    type="submit"
-    class="inline-flex min-h-11 w-full items-center justify-center rounded-full bg-amber-brand px-8 py-3.5 text-base font-semibold text-espresso shadow-card transition-colors hover:bg-[#e89a52] sm:w-auto"
-  >Send via WhatsApp</button>
-  <p class="text-xs text-ink/70">Opens WhatsApp with your message prefilled — nothing sends until you hit send there.</p>
+  <div class="flex flex-wrap items-center gap-4">
+    <button
+      type="submit"
+      class="inline-flex min-h-11 items-center justify-center rounded-full bg-amber-brand px-8 py-3.5 text-base font-semibold text-espresso shadow-card transition-colors hover:bg-[#e89a52]"
+    >Send message</button>
+    <a href={SITE.whatsappUrl} target="_blank" rel="noopener" data-event="whatsapp_click" class="min-h-11 inline-flex items-center text-sm font-semibold text-teal-deep underline underline-offset-4 hover:text-amber-deep">
+      or chat on WhatsApp instead
+    </a>
+  </div>
 </form>
 
 <script>
-  const form = document.getElementById('lead-form') as HTMLFormElement | null;
-  form?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const data = new FormData(form);
-    const text = [
-      `Hi Mini! I'd like to book a tour / get in touch.`,
-      `Name: ${data.get('name')}`,
-      `Phone: ${data.get('phone')}`,
-      `Email: ${data.get('email')}`,
-      `Interested in: ${data.get('interest')}`,
-      data.get('message') ? `Message: ${data.get('message')}` : '',
-    ].filter(Boolean).join('\n');
-    const url = `${form.dataset.whatsapp}?text=${encodeURIComponent(text)}`;
-    const win = window.open(url, '_blank', 'noopener');
-    document.getElementById(win ? 'form-success' : 'form-error')?.classList.remove('hidden');
-    if (win) window.dispatchEvent(new CustomEvent('mini:track', { detail: { event: 'lead_submit' } }));
-  });
+  // Success banner after FormSubmit redirects back with ?sent=1
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('sent') === '1') {
+    document.getElementById('form-success')?.classList.remove('hidden');
+    window.dispatchEvent(new CustomEvent('mini:track', { detail: { event: 'lead_submit' } }));
+  }
 </script>
