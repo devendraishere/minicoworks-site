@@ -2,7 +2,7 @@
 import Base from '@/layouts/Base.astro';
 import Breadcrumbs from '@/components/Breadcrumbs.astro';
 import Todo from '@/components/Todo.astro';
-import { SITE } from '@/lib/site';
+import { SITE, LEGAL } from '@/lib/site';
 import { breadcrumbs } from '@/lib/schema';
 
 const crumbs = [
@@ -24,8 +24,8 @@ const updated = '9 July 2026';
 
     <div class="prose-mini mt-8">
       <p>
-        This website is operated by {SITE.legalName} ("Mini", "we")
-        <Todo label="confirm legal entity name" />. By using it you agree to these terms — kept short and
+        This website is operated by <strong>{LEGAL.tradeName}</strong> ("Mini", "we"), {LEGAL.constitution}
+        registered under GSTIN {LEGAL.gstin}, at {SITE.address.full}. By using it you agree to these terms — kept short and
         in plain language on purpose.
       </p>
 

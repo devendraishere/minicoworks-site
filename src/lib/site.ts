@@ -34,6 +34,23 @@ export const SITE = {
   mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Mini+Coworks+Vivek+Vihar+Shyam+Nagar+Jaipur',
 } as const;
 
+/** Amenities confirmed for sales use (state.md, 2026-07-22) — safe to publish. */
+export const AMENITIES = [
+  'Free high-speed Wi-Fi + backup line',
+  'Unlimited tea & coffee',
+  'On-site cafeteria',
+  'AC throughout',
+  'Daily housekeeping',
+  'Walking distance from the metro',
+] as const;
+
+/** Legal entity per GST certificate (state.md) — used on privacy/terms. */
+export const LEGAL = {
+  tradeName: 'Mini Spaces',
+  constitution: 'a sole proprietorship',
+  gstin: '08FZNPS1238F2ZZ',
+} as const;
+
 /** Values still to come from Devendra — keep visible as TODOs (never invent). */
 export const TODO_CONFIRM = {
   priceCoworking: '[confirm]',

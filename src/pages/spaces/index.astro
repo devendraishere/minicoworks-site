@@ -5,7 +5,7 @@ import Button from '@/components/Button.astro';
 import Todo from '@/components/Todo.astro';
 import Doodle from '@/components/Doodle.astro';
 import CTASection from '@/components/CTASection.astro';
-import { SPACES } from '@/lib/site';
+import { SPACES, AMENITIES } from '@/lib/site';
 import { breadcrumbs, service } from '@/lib/schema';
 
 const crumbs = [
@@ -13,7 +13,7 @@ const crumbs = [
   { name: 'Spaces', href: '/spaces' },
 ];
 
-const reassurance = ['Fast Wi-Fi', 'Coffee', 'Meeting rooms', 'Community events', 'Concierge help'];
+const reassurance = [...AMENITIES, 'Community events', 'Concierge help'];
 
 const schema = [
   breadcrumbs(crumbs),
@@ -79,7 +79,6 @@ const schema = [
             <span class="h-2 w-2 rounded-full bg-teal-brand"></span>{r}
           </li>
         ))}
-        <li><Todo label="confirm amenity list" /></li>
       </ul>
       <div class="mt-8 flex flex-wrap justify-center gap-3">
         <Button href="/membership" variant="secondary">Compare membership</Button>
