@@ -62,8 +62,7 @@ const fmt = (d: Date) => d.toLocaleDateString('en-IN', { day: 'numeric', month: 
             One useful note at a time — no spam, unsubscribe whenever.
           </p>
         </div>
-        <!-- No form backend on GitHub Pages yet — subscribe requests go via WhatsApp.
-             TODO: swap to Netlify Forms / a newsletter service once hosting/email is ready. -->
+        <!-- Newsletter → FormSubmit, delivering to contact@ (activated 13-Sep-2026). -->
         <form action="https://formsubmit.co/contact@minicoworks.com" method="POST" class="flex flex-col gap-3 sm:flex-row">
           <input type="hidden" name="_subject" value="Journal subscribe — minicoworks.com" />
           <input type="hidden" name="_template" value="table" />

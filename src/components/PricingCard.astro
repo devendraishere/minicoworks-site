@@ -1,26 +1,27 @@
 ---
 import Button from './Button.astro';
-import Todo from './Todo.astro';
 interface Props {
   name: string;
   whoFor: string;
+  /** Confirmed rate, e.g. "₹9,000" */
+  price: string;
+  /** e.g. "+ GST / month" */
+  unit: string;
   features: string[];
   featured?: boolean;
-  nameConfirm?: boolean;
+  note?: string;
 }
-const { name, whoFor, features, featured = false, nameConfirm = true } = Astro.props;
+const { name, whoFor, price, unit, features, featured = false, note } = Astro.props;
 ---
 <article
   class={`flex flex-col rounded-3xl p-7 shadow-card ${
     featured ? 'bg-espresso text-cream ring-2 ring-amber-brand' : 'bg-white text-ink'
   }`}
 >
-  <h3 class={`text-2xl font-semibold ${featured ? 'text-cream' : 'text-espresso'}`}>
-    {name} {nameConfirm && <Todo label="tier name" />}
-  </h3>
-  <p class={`mt-1.5 text-sm ${featured ? 'text-cream/75' : 'text-ink/65'}`}>{whoFor}</p>
+  <h3 class={`text-2xl font-semibold ${featured ? 'text-cream' : 'text-espresso'}`}>{name}</h3>
+  <p class={`mt-1.5 text-sm ${featured ? 'text-cream/75' : 'text-ink/70'}`}>{whoFor}</p>
   <p class={`mt-5 font-display text-3xl font-semibold ${featured ? 'text-amber-brand' : 'text-espresso'}`}>
-    ₹<Todo label="price" /><span class={`text-base font-sans font-normal ${featured ? 'text-cream/70' : 'text-ink/70'}`}>/month</span>
+    {price}<span class={`ml-1 font-sans text-base font-normal ${featured ? 'text-cream/70' : 'text-ink/70'}`}>{unit}</span>
   </p>
   <ul class={`mt-5 flex-1 space-y-2.5 text-sm ${featured ? 'text-cream/85' : 'text-ink/80'}`}>
     {features.map((f) => (
@@ -30,6 +31,7 @@ const { name, whoFor, features, featured = false, nameConfirm = true } = Astro.p
       </li>
     ))}
   </ul>
+  {note && <p class={`mt-4 text-xs leading-relaxed ${featured ? 'text-cream/65' : 'text-ink/65'}`} set:html={note} />}
   <div class="mt-7">
     <Button href="/contact#tour" event="book_tour_click" variant={featured ? 'primary' : 'secondary'} class="w-full">Book a tour</Button>
   </div>

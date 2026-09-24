@@ -120,7 +120,6 @@ export const NAV = [
   { label: 'Home', href: '/' },
   { label: 'Spaces', href: '/spaces' },
   { label: 'Studio', href: '/studio' },
-  { label: 'Community', href: '/community' },
   { label: 'Membership', href: '/membership' },
   { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/contact' },

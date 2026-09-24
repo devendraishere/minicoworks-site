@@ -6,7 +6,7 @@ import Todo from '@/components/Todo.astro';
 import PricingCard from '@/components/PricingCard.astro';
 import FAQAccordion from '@/components/FAQAccordion.astro';
 import CTASection from '@/components/CTASection.astro';
-import { todoMark, SITE } from '@/lib/site';
+import { SITE, PRICING, STUDIO_PRICING, AMENITIES, todoMark } from '@/lib/site';
 import { breadcrumbs, faqPage } from '@/lib/schema';
 
 const crumbs = [
@@ -14,128 +14,136 @@ const crumbs = [
   { name: 'Membership', href: '/membership' },
 ];
 
-const todo = todoMark('confirm');
-const tiers = [
+const inr = (n: number) => `₹${n.toLocaleString('en-IN')}`;
+const everyPlan = [
+  'Free high-speed Wi-Fi + backup line',
+  'Power backup',
+  'Unlimited tea, coffee &amp; beverages',
+  'Printing',
+  'AC and daily housekeeping',
+  'Community events and intros',
+  'WhatsApp concierge line',
+];
+
+const plans = [
   {
-    name: 'Social',
-    whoFor: 'For flexible days and staying plugged in.',
-    features: [`Hot-desk days per month — ${todo}`, 'Community events and intros', 'Coffee and Wi-Fi on visit days', 'WhatsApp concierge line'],
+    name: 'Day Pass',
+    whoFor: 'Try the room, or drop in when you need it.',
+    price: inr(PRICING.dayPass),
+    unit: '+ GST / day',
+    features: ['Any open seat for the day', ...everyPlan.slice(0, 5), 'No commitment — just turn up'],
   },
   {
-    name: 'Flex',
-    whoFor: 'For regulars who want the room as a base.',
+    name: 'Open Desk',
+    whoFor: 'A desk of your own in the open room.',
+    price: inr(PRICING.openDeskMonthly),
+    unit: '+ GST / month',
+    features: ['Your own desk in the open area', ...everyPlan],
+  },
+  {
+    name: 'Private Cabin',
+    whoFor: 'A lockable room — solo, or a team of up to 8.',
+    price: `from ${inr(PRICING.cabinFrom)}`,
+    unit: '+ GST / month',
     featured: true,
-    features: ['Unlimited hot-desk access', `Meeting-room credits — ${todo}`, `Studio-time preference — ${todo}`, 'Community events and intros', 'WhatsApp concierge line'],
-  },
-  {
-    name: 'Resident',
-    whoFor: 'For a desk (or cabin) of your own.',
-    features: [`Dedicated desk or private cabin — ${todo}`, `Meeting-room credits — ${todo}`, `Studio-time add-on rates — ${todo}`, 'Community events and intros', 'WhatsApp concierge line'],
+    features: [
+      `Four sizes: ${inr(PRICING.cabins.small)} · ${inr(PRICING.cabins.big)} · ${inr(PRICING.cabins.bigger)} · ${inr(PRICING.cabins.team)} (${PRICING.teamCabinSeats}-seat team cabin)`,
+      'Quiet, lockable, yours',
+      ...everyPlan,
+    ],
+    note: `Cabin terms, written down: 3-month refundable deposit · 11-month term · 2 months' notice · fee fixed for the term · payable monthly in advance by the 5th.`,
   },
 ];
 
-const compare = [
-  { label: 'Workspace', values: ['Hot desk (limited days)', 'Hot desk (unlimited)', 'Dedicated desk / cabin'] },
-  { label: 'Meeting rooms', values: ['—', 'Credits [confirm]', 'Credits [confirm]'] },
-  { label: 'Studio access', values: ['Sessions bookable', 'Sessions + priority slots', 'Sessions at member rates (25% off)'] },
-  { label: 'Community & events', values: ['Included', 'Included', 'Included'] },
-  { label: 'Concierge', values: ['Included', 'Included', 'Included'] },
+const addOns = [
+  { name: 'Meeting room', price: `${inr(PRICING.meetingRoomPerHour)} + GST / hour`, detail: `Seats ${PRICING.meetingRoomSeats}. Set up before you walk in.` },
+  { name: 'Mini Studio', price: `from ${inr(STUDIO_PRICING.tiers[0].price)} + GST / 2-hr session`, detail: `Members save ${STUDIO_PRICING.memberDiscountPct}%. Book with or without a membership.`, href: '/studio' },
 ];
 
 const faqs = [
-  { q: 'Is there a lock-in period?', a: `No lock-in games — plans are designed to be simple and flexible. ${todoMark('confirm plan terms')}` },
-  { q: 'Can I switch plans later?', a: 'Yes — talk to us and we\'ll move you to whatever fits your rhythm.' },
-  { q: 'Does membership include the studio?', a: 'Studio time is an add-on on every plan, with member preference and rates. You can also book the studio without any membership.' },
+  { q: 'Is there a lock-in period?', a: `Day passes have none — turn up, pay for the day, done. Cabins run on an 11-month term with a 3-month refundable deposit and two months' notice, with the fee fixed for the term. We write it down rather than bury it.` },
+  { q: 'Can I switch plans later?', a: "Yes — talk to us and we'll move you to whatever fits your rhythm." },
+  { q: 'Does membership include the studio?', a: `Memberships include complimentary studio hours each month ${todoMark('how many hours, and which plans')}, and members save ${STUDIO_PRICING.memberDiscountPct}% on every session after that. You can also book the studio with no membership at all.` },
+  { q: 'What about the cafeteria?', a: 'Tea, coffee and other beverages are unlimited and included on every plan. Snacks and meals from the on-site cafeteria are chargeable.' },
   { q: 'How do I join?', a: 'Book a tour first — Mini is curated, so we start with a conversation, not a form.' },
 ];
 const faqSchema = faqPage([
-  { q: 'Can I switch plans later?', a: 'Yes — talk to us and we\'ll move you to whatever fits your rhythm.' },
-  { q: 'Does membership include the studio?', a: 'Studio time is an add-on on every plan, with member preference and rates. You can also book the studio without any membership.' },
+  { q: 'Is there a lock-in period?', a: "Day passes have no commitment. Cabins run on an 11-month term with a 3-month refundable deposit and two months' notice." },
+  { q: 'Can I switch plans later?', a: "Yes — talk to us and we'll move you to whatever fits your rhythm." },
+  { q: 'Does membership include the studio?', a: 'Members save 25% on every studio session, and can book the studio with or without a membership.' },
   { q: 'How do I join?', a: 'Book a tour first — Mini is curated, so we start with a conversation, not a form.' },
 ]);
 
-// Offer schema for tiers — prices intentionally omitted until confirmed.
 const offersSchema = {
   '@type': 'Product',
   name: 'Mini Coworking Membership (Jaipur)',
-  description: 'Coworking membership in Jaipur — Social, Flex and Resident plans, each with community, concierge and studio add-on access.',
+  description:
+    'Coworking in Jaipur — day passes, open desks and private cabins for teams of up to eight, each with community, concierge, and studio access.',
   brand: { '@type': 'Brand', name: 'Mini' },
-  offers: tiers.map((t) => ({
-    '@type': 'Offer',
-    name: `${t.name} membership`,
-    priceCurrency: 'INR',
-    // price: TODO [confirm] — add once pricing is final
-    availability: 'https://schema.org/InStock',
-    url: `${SITE.url}/membership`,
-  })),
+  offers: [
+    { '@type': 'Offer', name: 'Day pass', price: PRICING.dayPass, priceCurrency: 'INR', url: `${SITE.url}/membership`, availability: 'https://schema.org/InStock' },
+    { '@type': 'Offer', name: 'Open desk (monthly)', price: PRICING.openDeskMonthly, priceCurrency: 'INR', url: `${SITE.url}/membership`, availability: 'https://schema.org/InStock' },
+    { '@type': 'AggregateOffer', name: 'Private cabin (monthly)', lowPrice: PRICING.cabins.small, highPrice: PRICING.cabins.team, priceCurrency: 'INR', offerCount: 4, url: `${SITE.url}/membership` },
+    { '@type': 'Offer', name: 'Meeting room (hourly)', price: PRICING.meetingRoomPerHour, priceCurrency: 'INR', url: `${SITE.url}/membership`, availability: 'https://schema.org/InStock' },
+  ],
 };
 
 const schema = [breadcrumbs(crumbs), faqSchema, offersSchema];
 ---
 <Base
   title="Coworking Membership & Pricing in Jaipur | Mini"
-  description="Simple coworking membership in Jaipur — Social, Flex and Resident plans with community, concierge and studio add-ons. No lock-in games. Book a tour."
+  description="Coworking prices in Jaipur — day pass ₹600, open desk ₹9,000 a month, private cabins from ₹20,000, meeting room ₹2,000 an hour. Plus GST. Book a tour."
   schema={schema}
   viewEvent="membership_view"
 >
   <Breadcrumbs items={crumbs} />
 
   <section class="mx-auto max-w-6xl px-4 pb-14 pt-10 text-center sm:px-6 sm:pt-14">
-    <h1 class="text-4xl font-semibold leading-[1.1] text-espresso sm:text-5xl">Simple plans. No lock-in games.</h1>
+    <h1 class="text-4xl font-semibold leading-[1.1] text-espresso sm:text-5xl">Simple plans. Real numbers.</h1>
     <p class="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-ink/75">
-      A coworking membership in Jaipur that's honest and flexible: every plan includes the curated community and the
-      concierge — you're choosing how much room you need, not which tier of service you deserve.
+      Every plan includes the curated community and the concierge — you're choosing how much room you need, not
+      which tier of service you deserve. Prices below exclude GST.
     </p>
-    <p class="mt-4"><Todo label="tier names + pricing to be confirmed — placeholders below" /></p>
   </section>
 
   <section class="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
     <div class="grid gap-6 lg:grid-cols-3">
-      {tiers.map((t) => (
-        <PricingCard name={t.name} whoFor={t.whoFor} features={t.features} featured={t.featured} />
-      ))}
+      {plans.map((p) => <PricingCard {...p} />)}
     </div>
   </section>
 
-  <!-- Comparison table -->
+  <!-- Add-ons -->
   <section class="bg-cream">
     <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-      <h2 class="text-center text-3xl font-semibold text-espresso">Compare plans</h2>
-      <div class="mt-8 overflow-x-auto rounded-3xl bg-white shadow-card">
-        <table class="w-full min-w-[40rem] text-left text-sm">
-          <caption class="sr-only">Comparison of Mini membership plans</caption>
-          <thead>
-            <tr class="border-b border-espresso/10">
-              <th scope="col" class="px-6 py-4 font-semibold text-espresso">What you get</th>
-              {tiers.map((t) => <th scope="col" class="px-6 py-4 font-semibold text-espresso">{t.name}</th>)}
-            </tr>
-          </thead>
-          <tbody>
-            {compare.map((row) => (
-              <tr class="border-b border-espresso/5 last:border-0">
-                <th scope="row" class="px-6 py-3.5 font-medium text-ink/80">{row.label}</th>
-                {row.values.map((v) => <td class="px-6 py-3.5 text-ink/70">{v}</td>)}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <h2 class="text-center text-3xl font-semibold text-espresso">Add what you need, when you need it</h2>
+      <div class="mx-auto mt-8 grid max-w-3xl gap-5 sm:grid-cols-2">
+        {addOns.map((a) => (
+          <div class="rounded-3xl bg-white p-7 shadow-card">
+            <h3 class="text-lg font-semibold text-espresso">
+              {a.href ? <a href={a.href} class="hover:text-amber-deep">{a.name}</a> : a.name}
+            </h3>
+            <p class="mt-2 font-display text-xl font-semibold text-espresso">{a.price}</p>
+            <p class="mt-2 text-sm leading-relaxed text-ink/75">{a.detail}</p>
+          </div>
+        ))}
       </div>
-      <p class="mt-4 text-center text-xs text-ink/70">Rows marked [confirm] are placeholders — final inclusions to be confirmed.</p>
+      <p class="mt-8 text-center text-sm text-ink/70">
+        Everything on this page is per person, excluding GST at 18%.
+      </p>
     </div>
   </section>
 
-  <!-- Studio add-on -->
+  <!-- What every plan includes -->
   <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-    <div class="grid items-center gap-8 rounded-3xl bg-berry p-8 text-cream sm:p-12 lg:grid-cols-[1.5fr_auto]">
-      <div>
-        <h2 class="text-3xl font-semibold">Add the studio to any plan</h2>
-        <p class="mt-4 max-w-xl leading-relaxed text-cream/85">
-          Every membership can carry Mini Studio hours — record your podcast or batch your reels where you already work.
-          Studio sessions from ₹6,500 for two hours — and members save 25%.
-        </p>
-      </div>
-      <Button href="/studio" size="lg" event="studio_book_click">See the studio</Button>
-    </div>
+    <h2 class="text-center text-3xl font-semibold text-espresso">Included on every plan</h2>
+    <ul class="mx-auto mt-8 flex max-w-4xl flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm font-semibold text-espresso/80">
+      {AMENITIES.map((a) => (
+        <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-teal-brand"></span>{a}</li>
+      ))}
+    </ul>
+    <p class="mt-6 text-center text-sm text-ink/70">
+      Beverages are unlimited and included. Snacks and meals from the cafeteria are chargeable.
+    </p>
   </section>
 
   <!-- FAQ -->

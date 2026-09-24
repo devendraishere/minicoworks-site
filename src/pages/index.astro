@@ -5,7 +5,6 @@ import Doodle from '@/components/Doodle.astro';
 import Todo from '@/components/Todo.astro';
 import PillarCard from '@/components/PillarCard.astro';
 import SpaceCard from '@/components/SpaceCard.astro';
-import TestimonialCard from '@/components/TestimonialCard.astro';
 import FAQAccordion from '@/components/FAQAccordion.astro';
 import CTASection from '@/components/CTASection.astro';
 import MapEmbed from '@/components/MapEmbed.astro';
@@ -28,9 +27,6 @@ const faqSchema = faqPage([
   { q: 'Do you have a podcast studio?', a: 'Yes — Mini Studio is on site. You can book it with or without a membership.' },
   { q: 'Can I try before joining?', a: 'Yes. Book a free tour, or ask us about a day pass.' },
 ]);
-
-/** Community stories need real member quotes + photos — hidden until then. */
-const SHOW_COMMUNITY_STORIES = false;
 
 const pillars = [
   { title: 'Known, not numbered.', body: 'We keep the room curated and actually introduce people. You join a community, not a crowd.', icon: 'sparkle', accent: 'amber' },
@@ -133,38 +129,13 @@ const schema = [
     </div>
   </section>
 
-  {/* Section 6 — Community stories: HIDDEN until real member stories + photos exist.
-     Flip SHOW_COMMUNITY_STORIES to true in the frontmatter to bring it back. */}
-  {SHOW_COMMUNITY_STORIES && (
-    <!-- 6 · Community stories -->
-    <section class="bg-cream">
-      <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
-        <h2 class="text-3xl font-semibold text-espresso sm:text-4xl">The people make it Mini.</h2>
-        <p class="mt-4 max-w-2xl text-base leading-relaxed text-ink/75">
-          Real members, real momentum — founders, creators and small teams building side by side.
-        </p>
-        <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          <TestimonialCard />
-          <TestimonialCard />
-          <TestimonialCard />
-        </div>
-        <div class="mt-9 flex flex-wrap items-center gap-5">
-          <Button href="/community" variant="secondary">Read member stories</Button>
-          <a href="/community#day-in-the-life" class="min-h-11 inline-flex items-center text-sm font-semibold text-teal-deep underline underline-offset-4 hover:text-amber-deep">
-            A Day in the Life at Mini →
-          </a>
-        </div>
-      </div>
-    </section>
-  )}
-
   <!-- 7 · How it works -->
   <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
     <h2 class="text-center text-3xl font-semibold text-espresso sm:text-4xl">Your day, handled.</h2>
     <ol class="mx-auto mt-10 grid max-w-4xl gap-5 sm:grid-cols-3">
       {[
         { n: '1', t: 'Book a tour', d: 'Come see the room.' },
-        { n: '2', t: 'Pick your plan', d: 'No lock-in games.' },
+        { n: '2', t: 'Pick your plan', d: 'Terms written down, not buried.' },
         { n: '3', t: 'Just show up', d: 'We handle the rest.' },
       ].map((step) => (
         <li class="rounded-3xl bg-white p-7 text-center shadow-card">
@@ -182,13 +153,19 @@ const schema = [
   <!-- 8 · Membership teaser -->
   <section class="bg-cream">
     <div class="mx-auto max-w-6xl px-4 py-16 text-center sm:px-6 sm:py-20">
-      <h2 class="text-3xl font-semibold text-espresso sm:text-4xl">Simple plans. No lock-in games.</h2>
-      <div class="mx-auto mt-8 flex max-w-2xl flex-wrap items-center justify-center gap-3">
-        {['Social', 'Flex', 'Resident'].map((name) => (
-          <span class="rounded-full bg-white px-6 py-3 font-display text-lg font-semibold text-espresso shadow-card">{name} <Todo label="tier name" /></span>
+      <h2 class="text-3xl font-semibold text-espresso sm:text-4xl">Simple plans. Real numbers.</h2>
+      <div class="mx-auto mt-8 flex max-w-3xl flex-wrap items-center justify-center gap-3">
+        {[
+          { name: 'Day pass', price: '₹600 / day' },
+          { name: 'Open desk', price: '₹9,000 / month' },
+          { name: 'Private cabin', price: 'from ₹20,000 / month' },
+        ].map((p) => (
+          <span class="rounded-full bg-white px-6 py-3 font-display text-lg font-semibold text-espresso shadow-card">
+            {p.name} <span class="font-sans text-sm font-normal text-ink/70">{p.price}</span>
+          </span>
         ))}
       </div>
-      <p class="mt-5 text-sm text-ink/65">from ₹<Todo label="price" />/month</p>
+      <p class="mt-5 text-sm text-ink/70">Meeting room ₹2,000 an hour · studio sessions from ₹6,500. All plus GST.</p>
       <div class="mt-7"><Button href="/membership">See membership</Button></div>
     </div>
   </section>
