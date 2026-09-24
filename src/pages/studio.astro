@@ -34,8 +34,6 @@ const faqs = [
   { q: 'Do I need a membership to book the studio?', a: 'No — anyone can book Mini Studio. Members get preferential access and studio-time add-ons.' },
   { q: 'Can you help with editing?', a: 'Yes. Editing starts at ₹8,000 an episode — clean cut, two reels and a thumbnail — with fuller packages for cinematic grading and motion graphics.' },
   { q: 'What formats can I record?', a: 'Podcasts (audio and video), interviews, reels and short-form, brand shoots, and voiceovers.' },
-  { q: 'How many people fit in the studio?', a: todoMark('confirm seats / capacity') },
-  { q: 'Can I livestream from the studio?', a: todoMark('confirm livestream capability') },
 ];
 const faqSchema = faqPage([
   { q: 'Do I need a membership to book the studio?', a: 'No — anyone can book Mini Studio. Members get preferential access and studio-time add-ons.' },
@@ -81,7 +79,6 @@ const schema = [
       </div>
       <div class="mx-auto rounded-3xl bg-espresso p-10 text-center">
         <Doodle kind="mic" class="mx-auto h-36 w-36 text-amber-brand" />
-        <p class="mt-4 text-xs text-cream/70">Studio photo/reel goes here · <Todo label="real studio photography" class="!border-cream/50 !bg-cream/10 !text-cream" /></p>
       </div>
     </div>
   </section>
