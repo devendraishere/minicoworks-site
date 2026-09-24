@@ -102,6 +102,8 @@ export const PRICING = {
   cabins: { small: 20000, big: 30000, bigger: 35000, team: 50000 },
   teamCabinSeats: 8,
   meetingRoomPerHour: 2000,
+  /** Complimentary Mini Studio hours per month, by plan. Confirmed 2026-09-24. */
+  studioHours: { openDesk: 2, cabin: 4 },
   meetingRoomSeats: '4–6',
 } as const;
 

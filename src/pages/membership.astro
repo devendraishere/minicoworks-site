@@ -38,7 +38,7 @@ const plans = [
     whoFor: 'A desk of your own in the open room.',
     price: inr(PRICING.openDeskMonthly),
     unit: '+ GST / month',
-    features: ['Your own desk in the open area', ...everyPlan],
+    features: ['Your own desk in the open area', `<strong>${PRICING.studioHours.openDesk} complimentary Mini Studio hours</strong> every month`, ...everyPlan],
   },
   {
     name: 'Private Cabin',
@@ -49,6 +49,7 @@ const plans = [
     features: [
       `Four sizes: ${inr(PRICING.cabins.small)} · ${inr(PRICING.cabins.big)} · ${inr(PRICING.cabins.bigger)} · ${inr(PRICING.cabins.team)} (${PRICING.teamCabinSeats}-seat team cabin)`,
       'Quiet, lockable, yours',
+      `<strong>${PRICING.studioHours.cabin} complimentary Mini Studio hours</strong> every month`,
       ...everyPlan,
     ],
     note: `Cabin terms, written down: 3-month refundable deposit · 11-month term · 2 months' notice · fee fixed for the term · payable monthly in advance by the 5th.`,
@@ -63,14 +64,14 @@ const addOns = [
 const faqs = [
   { q: 'Is there a lock-in period?', a: `Day passes have none — turn up, pay for the day, done. Cabins run on an 11-month term with a 3-month refundable deposit and two months' notice, with the fee fixed for the term. We write it down rather than bury it.` },
   { q: 'Can I switch plans later?', a: "Yes — talk to us and we'll move you to whatever fits your rhythm." },
-  { q: 'Does membership include the studio?', a: `Memberships include complimentary studio hours each month ${todoMark('how many hours, and which plans')}, and members save ${STUDIO_PRICING.memberDiscountPct}% on every session after that. You can also book the studio with no membership at all.` },
+  { q: 'Does membership include the studio?', a: `Yes — open-desk members get ${PRICING.studioHours.openDesk} complimentary studio hours a month, and cabin members get ${PRICING.studioHours.cabin}. Beyond that, members save ${STUDIO_PRICING.memberDiscountPct}% on every session. You can also book the studio with no membership at all.` },
   { q: 'What about the cafeteria?', a: 'Tea, coffee and other beverages are unlimited and included on every plan. Snacks and meals from the on-site cafeteria are chargeable.' },
   { q: 'How do I join?', a: 'Book a tour first — Mini is curated, so we start with a conversation, not a form.' },
 ];
 const faqSchema = faqPage([
   { q: 'Is there a lock-in period?', a: "Day passes have no commitment. Cabins run on an 11-month term with a 3-month refundable deposit and two months' notice." },
   { q: 'Can I switch plans later?', a: "Yes — talk to us and we'll move you to whatever fits your rhythm." },
-  { q: 'Does membership include the studio?', a: 'Members save 25% on every studio session, and can book the studio with or without a membership.' },
+  { q: 'Does membership include the studio?', a: 'Open-desk members get 2 complimentary studio hours a month and cabin members get 4. Beyond that, members save 25% on every session. The studio can also be booked without a membership.' },
   { q: 'How do I join?', a: 'Book a tour first — Mini is curated, so we start with a conversation, not a form.' },
 ]);
 
