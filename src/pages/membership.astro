@@ -37,7 +37,7 @@ const tiers = [
 const compare = [
   { label: 'Workspace', values: ['Hot desk (limited days)', 'Hot desk (unlimited)', 'Dedicated desk / cabin'] },
   { label: 'Meeting rooms', values: ['—', 'Credits [confirm]', 'Credits [confirm]'] },
-  { label: 'Studio access', values: ['Bookable hourly', 'Bookable + preference', 'Bookable + member rates'] },
+  { label: 'Studio access', values: ['Sessions bookable', 'Sessions + priority slots', 'Sessions at member rates (25% off)'] },
   { label: 'Community & events', values: ['Included', 'Included', 'Included'] },
   { label: 'Concierge', values: ['Included', 'Included', 'Included'] },
 ];
@@ -131,7 +131,7 @@ const schema = [breadcrumbs(crumbs), faqSchema, offersSchema];
         <h2 class="text-3xl font-semibold">Add the studio to any plan</h2>
         <p class="mt-4 max-w-xl leading-relaxed text-cream/85">
           Every membership can carry Mini Studio hours — record your podcast or batch your reels where you already work.
-          Studio time from ₹<Todo label="hourly rate" class="!border-cream/50 !bg-cream/10 !text-cream" />/hour.
+          Studio sessions from ₹6,500 for two hours — and members save 25%.
         </p>
       </div>
       <Button href="/studio" size="lg" event="studio_book_click">See the studio</Button>

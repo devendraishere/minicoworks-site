@@ -51,10 +51,46 @@ export const LEGAL = {
   gstin: '08FZNPS1238F2ZZ',
 } as const;
 
+/**
+ * Mini Studio rate card — approved 2026-09-24.
+ * Source: marketing/studio-rate-card-recommendation.md
+ * Unit of sale is the 2-HOUR SESSION, not the hour (2 hrs = one 20–25 min episode).
+ * All figures EX-GST. Studio = SAC 999611, output GST 18%.
+ */
+export const STUDIO_PRICING = {
+  currency: 'INR',
+  note: 'All prices exclude GST (18%).',
+  memberDiscountPct: 25,
+  tiers: [
+    {
+      name: 'Record',
+      price: 6500,
+      unit: '2-hour session',
+      blurb: 'The room, mics and lighting — you drive. Raw files on a drive before you leave.',
+      featured: false,
+    },
+    {
+      name: 'Record + Crew',
+      price: 9500,
+      unit: '2-hour session',
+      blurb: 'Two cameras, full mic set and lighting, with an operator on the floor. Raw files within 48 hours.',
+      featured: true,
+    },
+    {
+      name: 'Full day',
+      price: 28000,
+      unit: '8 hours, crewed',
+      blurb: 'Batch a season in a day. Roughly a quarter off the session rate.',
+      featured: false,
+    },
+  ],
+  editingFrom: 8000,
+  halfDay: 17000,
+} as const;
+
 /** Values still to come from Devendra — keep visible as TODOs (never invent). */
 export const TODO_CONFIRM = {
   priceCoworking: '[confirm]',
-  priceStudio: '[confirm]',
   memberCount: '[X] members — [confirm]',
 } as const;
 

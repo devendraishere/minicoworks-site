@@ -6,7 +6,7 @@ import Doodle from '@/components/Doodle.astro';
 import Todo from '@/components/Todo.astro';
 import FAQAccordion from '@/components/FAQAccordion.astro';
 import CTASection from '@/components/CTASection.astro';
-import { SITE, todoMark } from '@/lib/site';
+import { SITE, todoMark, STUDIO_PRICING } from '@/lib/site';
 import { faqPage, service, breadcrumbs } from '@/lib/schema';
 
 const crumbs = [
@@ -23,7 +23,7 @@ const formats = [
 ] as const;
 
 const steps = [
-  { t: 'Pick a slot', d: 'Book by the hour — with or without a membership.' },
+  { t: 'Pick a slot', d: 'Book a 2-hour session — with or without a membership.' },
   { t: 'Tell us your format', d: 'Podcast, reel, interview or shoot.' },
   { t: 'We set it up', d: 'Walk into a room that\'s ready to record.' },
   { t: 'You record', d: 'Just create — the tech is handled.' },
@@ -32,7 +32,7 @@ const steps = [
 
 const faqs = [
   { q: 'Do I need a membership to book the studio?', a: 'No — anyone can book Mini Studio. Members get preferential access and studio-time add-ons.' },
-  { q: 'Can you help with editing?', a: todoMark('confirm editing / production add-on') },
+  { q: 'Can you help with editing?', a: 'Yes. Editing starts at ₹8,000 an episode — clean cut, two reels and a thumbnail — with fuller packages for cinematic grading and motion graphics.' },
   { q: 'What formats can I record?', a: 'Podcasts (audio and video), interviews, reels and short-form, brand shoots, and voiceovers.' },
   { q: 'How many people fit in the studio?', a: todoMark('confirm seats / capacity') },
   { q: 'Can I livestream from the studio?', a: todoMark('confirm livestream capability') },
@@ -47,7 +47,7 @@ const schema = [
   faqSchema,
   service({
     name: 'Mini Studio — Podcast & Content Studio in Jaipur',
-    description: 'Turnkey podcast and content studio in Jaipur. Book by the hour — walk in, hit record, walk out with pro-grade audio and video.',
+    description: 'Turnkey podcast and content studio in Jaipur. Book a 2-hour session — walk in, hit record, walk out with pro-grade audio and video.',
     url: '/studio',
     type: 'Recording studio',
   }),
@@ -55,7 +55,7 @@ const schema = [
 ---
 <Base
   title="Podcast & Content Studio in Jaipur — Mini Studio"
-  description="Jaipur's turnkey podcast and content studio. Walk in, hit record, walk out with pro-grade audio and video. Book by the hour — we handle the tech."
+  description="Jaipur's turnkey podcast and content studio. Walk in, hit record, walk out with pro-grade audio and video. Book a session — we handle the tech."
   schema={schema}
   viewEvent="studio_view"
 >
@@ -121,13 +121,36 @@ const schema = [
       </div>
       <div>
         <h2 class="text-3xl font-semibold text-espresso sm:text-4xl">Pricing</h2>
-        <div class="mt-6 rounded-3xl bg-white p-7 shadow-card">
-          <p class="font-display text-3xl font-semibold text-espresso">from ₹<Todo label="hourly rate" /><span class="font-sans text-base font-normal text-ink/70">/hour</span></p>
-          <p class="mt-3 text-sm leading-relaxed text-ink/70">
-            Packages for regular creators — <Todo label="confirm packages" />. Members can add studio time to any plan.
-          </p>
-          <div class="mt-6"><Button href="/contact#tour" event="studio_book_click" class="w-full">Book the studio</Button></div>
+        <p class="mt-3 text-sm leading-relaxed text-ink/70">
+          We sell the session, not the hour. Two hours is what one 20–25 minute episode actually takes —
+          setting up, recording, and getting out without watching the clock.
+        </p>
+
+        <div class="mt-6 space-y-3">
+          {STUDIO_PRICING.tiers.map((tier) => (
+            <div class={`rounded-3xl p-6 shadow-card ${tier.featured ? 'bg-espresso text-cream ring-2 ring-amber-brand' : 'bg-white'}`}>
+              <div class="flex items-baseline justify-between gap-3">
+                <h3 class={`font-display text-xl font-semibold ${tier.featured ? 'text-cream' : 'text-espresso'}`}>
+                  {tier.name}
+                  {tier.featured && <span class="ml-2 rounded-full bg-amber-brand px-2 py-0.5 align-middle font-sans text-[0.6rem] font-semibold uppercase tracking-wide text-espresso">Most booked</span>}
+                </h3>
+                <p class={`font-display text-2xl font-semibold ${tier.featured ? 'text-cream' : 'text-espresso'}`}>
+                  ₹{tier.price.toLocaleString('en-IN')}
+                </p>
+              </div>
+              <p class={`mt-1 text-xs font-semibold uppercase tracking-wide ${tier.featured ? 'text-cream/60' : 'text-ink/50'}`}>{tier.unit}</p>
+              <p class={`mt-3 text-sm leading-relaxed ${tier.featured ? 'text-cream/80' : 'text-ink/70'}`}>{tier.blurb}</p>
+            </div>
+          ))}
         </div>
+
+        <div class="mt-5 rounded-2xl bg-white/60 p-5 text-sm leading-relaxed text-ink/75">
+          <p><span class="font-semibold text-espresso">Members save {STUDIO_PRICING.memberDiscountPct}%</span> on every session — and get studio time bundled into the top plan.</p>
+          <p class="mt-2">Half day (4 hrs, crewed) ₹{STUDIO_PRICING.halfDay.toLocaleString('en-IN')} · Editing from ₹{STUDIO_PRICING.editingFrom.toLocaleString('en-IN')} an episode · extra cameras, mics and guests on request.</p>
+          <p class="mt-2 text-xs text-ink/55">{STUDIO_PRICING.note}</p>
+        </div>
+
+        <div class="mt-6"><Button href="/contact#tour" event="studio_book_click" class="w-full">Book the studio</Button></div>
       </div>
     </div>
   </section>

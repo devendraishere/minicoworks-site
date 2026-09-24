@@ -53,7 +53,7 @@ export function localBusiness() {
     image: `${SITE.url}/og/og-default.png`,
     logo: `${SITE.url}/logo.svg`,
     sameAs: [SITE.instagram.coworking.url, SITE.instagram.studio.url],
-    // priceRange: TODO [confirm] — set once pricing is confirmed
+    priceRange: '₹₹',
     address: ADDRESS,
     geo: GEO,
     openingHoursSpecification: OPENING_HOURS,
