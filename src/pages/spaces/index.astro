@@ -51,7 +51,7 @@ const schema = [
             <a href={`/spaces/${s.slug}`} class="hover:text-amber-deep">{s.name}</a>
           </h2>
           <p class="mt-2.5 max-w-xl leading-relaxed text-ink/75">{s.description}</p>
-          <p class="mt-4 text-sm font-semibold text-espresso/80">from ₹<Todo label="price" /></p>
+          <p class="mt-4 text-sm font-semibold text-espresso/80">{s.priceLabel}</p>
         </div>
         <div class="flex flex-wrap gap-3 lg:flex-col">
           <Button href="/contact#tour" event="book_tour_click">Book a tour</Button>

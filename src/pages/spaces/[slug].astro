@@ -53,7 +53,7 @@ const detail: Record<string, { h1: string; title: string; meta: string; body: st
       'Book Mini\'s meeting room by the hour for client calls, pitches and workshops. Tell us the format and we\'ll have the room set up before you arrive.',
       'Members use meeting-room credits; non-members can book by the hour. Either way, you walk into a room that\'s ready.',
     ],
-    points: ['Book by the hour', 'Set up for calls, pitches and workshops', 'Member credits available', 'Concierge sets the room up for you'],
+    points: ['₹2,000 + GST an hour', 'Seats 4–6 people', 'Set up for calls, pitches and workshops', 'Concierge sets the room up before you arrive'],
   },
 };
 
@@ -94,7 +94,7 @@ const schema = [
       <aside class="h-fit rounded-3xl bg-white p-7 shadow-card">
         <h2 class="text-lg font-semibold text-espresso">At a glance</h2>
         <dl class="mt-4 space-y-3 text-sm">
-          <div class="flex justify-between gap-4"><dt class="text-ink/70">Pricing</dt><dd class="font-semibold text-espresso">from ₹<Todo label="price" /></dd></div>
+          <div class="flex justify-between gap-4"><dt class="text-ink/70">Pricing</dt><dd class="font-semibold text-espresso">{space.priceLabel}</dd></div>
           <div class="flex justify-between gap-4"><dt class="text-ink/70">Community access</dt><dd class="font-semibold text-espresso">Included</dd></div>
           <div class="flex justify-between gap-4"><dt class="text-ink/70">Concierge</dt><dd class="font-semibold text-espresso">Included</dd></div>
           <div class="flex justify-between gap-4"><dt class="text-ink/70">Studio add-on</dt><dd class="font-semibold text-espresso"><a href="/studio" class="text-teal-deep underline underline-offset-4">Available</a></dd></div>

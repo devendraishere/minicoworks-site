@@ -37,8 +37,10 @@ export const SITE = {
 /** Amenities confirmed for sales use (state.md, 2026-07-22) — safe to publish. */
 export const AMENITIES = [
   'Free high-speed Wi-Fi + backup line',
-  'Unlimited tea & coffee',
-  'On-site cafeteria',
+  'Power backup',
+  'Unlimited tea, coffee & beverages',
+  'On-site cafeteria (food chargeable)',
+  'Printing',
   'AC throughout',
   'Daily housekeeping',
   'Walking distance from the metro',
@@ -88,6 +90,21 @@ export const STUDIO_PRICING = {
   halfDay: 17000,
 } as const;
 
+/**
+ * Coworking + meeting-room rate card — confirmed by Devendra 2026-09-24.
+ * Cabin rates from system/state.md. All figures EX-GST (18%).
+ */
+export const PRICING = {
+  note: 'All prices exclude GST (18%).',
+  dayPass: 600,
+  openDeskMonthly: 9000,
+  cabinFrom: 20000,
+  cabins: { small: 20000, big: 30000, bigger: 35000, team: 50000 },
+  teamCabinSeats: 8,
+  meetingRoomPerHour: 2000,
+  meetingRoomSeats: '4–6',
+} as const;
+
 /** Values still to come from Devendra — keep visible as TODOs (never invent). */
 export const TODO_CONFIRM = {
   priceCoworking: '[confirm]',
@@ -112,6 +129,7 @@ export const NAV = [
 export const SPACES = [
   {
     slug: 'hot-desk',
+    priceLabel: '₹600 + GST / day',
     name: 'Hot Desk',
     line: 'Grab any open seat. Perfect for flexible days.',
     keyword: 'hot desk coworking Jaipur',
@@ -120,6 +138,7 @@ export const SPACES = [
   },
   {
     slug: 'dedicated-desk',
+    priceLabel: '₹9,000 + GST / month',
     name: 'Dedicated Desk',
     line: 'Your own spot, set up the way you like it.',
     keyword: 'dedicated desk Jaipur',
@@ -128,6 +147,7 @@ export const SPACES = [
   },
   {
     slug: 'private-cabin',
+    priceLabel: 'from ₹20,000 + GST / month',
     name: 'Private Cabin',
     line: 'A quiet, lockable room for you or a small team.',
     keyword: 'private office Jaipur',
@@ -136,6 +156,7 @@ export const SPACES = [
   },
   {
     slug: 'meeting-room',
+    priceLabel: '₹2,000 + GST / hour',
     name: 'Meeting Room',
     line: 'Book by the hour for calls, pitches and workshops.',
     keyword: 'meeting room Jaipur',
