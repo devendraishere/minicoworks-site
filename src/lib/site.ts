@@ -121,7 +121,6 @@ export const NAV = [
   { label: 'Spaces', href: '/spaces' },
   { label: 'Studio', href: '/studio' },
   { label: 'Membership', href: '/membership' },
-  { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/contact' },
 ] as const;
 
